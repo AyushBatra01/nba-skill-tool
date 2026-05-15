@@ -1,0 +1,80 @@
+{
+  "pillars": {
+    "Shooting": {
+      "description": "Ability to create spacing pressure through shooting volume and efficiency.",
+
+      "weight": 0.30,
+
+      "stats": {
+        "TPP": {
+          "weight": 0.3,
+          "description": "Three-point proficiency (shrinks 3P% towards 0 for low volume shooters)."
+        },
+
+        "TPS": {
+          "weight": 0.6,
+          "description": "Three-point shooting score, accounting for volume and efficiency."
+        },
+
+        "FTP": {
+          "weight": 0.1,
+          "description": "Free throw percentage."
+        }
+      }
+    },
+
+    "Movement": {
+      "description": "Ability to occupy defenders on the perimeter by being a threat as a movement shooter.",
+
+      "weight": 0.30,
+
+      "stats": {
+        "OffScreen": {
+          "weight": 0.7,
+          "description": "Off screen playtype score, accounting for volume and efficiency."
+        },
+
+        "SpotUp": {
+          "weight": 0.3,
+          "description": "Spot-up playtype score, accounting for volume and efficiency."
+        }
+      }
+    },
+
+    "Interior": {
+      "description": "Ability to produce off-ball actions through cuts and ballscreens.",
+
+      "weight": 0.35,
+
+      "stats": {
+        "Cut": {
+          "weight": 0.5,
+          "description": "Cut playtype score, accounting for volume and efficiency."
+        },
+
+        "Rollman": {
+          "weight": 0.3,
+          "description": "Pick & Roll Rollman playtype score, accounting for volume and efficiency."
+        },
+
+        "ScreenAst": {
+          "weight": 0.2,
+          "description": "Screen assists per 100 possessions."
+        }
+      }
+    },
+
+    "Motor": {
+      "description": "Amount of movement a player provides offensively.",
+
+      "weight": 0.05,
+
+      "stats": {
+        "Dist": {
+          "weight": 1,
+          "description": "Offensive distance moved per 100 possessions."
+        }
+      }
+    }
+  }
+}

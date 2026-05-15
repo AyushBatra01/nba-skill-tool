@@ -1,0 +1,90 @@
+{
+  "pillars": {
+    "Scoring": {
+      "description": "Scoring ability.",
+
+      "weight": 0.25,
+
+      "stats": {
+        "Score": {
+          "weight": 0.45,
+          "description": "Points per 100 possessions, adjusted for scoring efficiency."
+        },
+
+        "Iso": {
+          "weight": 0.25,
+          "description": "Isolation playtype score, accounting for volume and efficiency."
+        },
+
+        "PnR": {
+          "weight": 0.20,
+          "description": "Pick & Roll Ball Handler playtype score, accounting for volume and efficiency."
+        },
+
+        "TSP": {
+          "weight": 0.10,
+          "description": "True Shooting Percentage."
+        }
+      }
+    },
+
+    "Playmaking": {
+      "description": "Passing and Playmaking Ability.",
+
+      "weight": 0.25,
+
+      "stats": {
+        "Pass": {
+          "weight": 0.7,
+          "description": "Assists per 100 possessions, adjusted for passing efficiency (AST vs TOV)."
+        },
+
+        "QuickDecision": {
+          "weight": 0.2,
+          "description": "Decision-Making score, accounting for assists per pass made, points per touch, and seconds per touch; rewards players with high impact and low time per touch.",
+        },
+
+        "TOVP": {
+          "weight": 0.1,
+          "description": "Turnover Rate."
+        }
+      }
+    },
+
+    "DualThreat": {
+      "description": "Ability to attack defenses as both a scoring and playmaking threat simultaneously.",
+
+      "weight": 0.40,
+
+      "stats": {
+        "Double": {
+          "weight": 0.7,
+          "description": "PTS * AST, adjusted for efficiency."
+        },
+
+        "Add": {
+          "weight": 0.3,
+          "description": "PTS + AST, adjusted for efficiency."
+        }
+      }
+    },
+
+    "Pressure": {
+      "description": "Ability to pressure the rim through drives or post-ups.",
+
+      "weight": 0.1,
+
+      "stats": {
+        "RimPressure": {
+          "weight": 0.8,
+          "description": "Ability to pressure rim, accounting for drives/post-ups per touch and efficiency."
+        },
+
+        "QuickDecision": {
+          "weight": 0.2,
+          "description": "Decision-making score."
+        }
+      }
+    }
+  }
+}

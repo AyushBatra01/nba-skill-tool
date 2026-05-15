@@ -1,0 +1,95 @@
+{
+  "pillars": {
+    "Disruption": {
+      "description": "Ability to disrupt offenses through blocks, steals, and deflections.",
+
+      "weight": 0.25,
+
+      "stats": {
+        "Stock": {
+          "weight": 0.35,
+          "description": "STL + BLK per 100 possessions."
+        },
+
+        "Double": {
+          "weight": 0.30,
+          "description": "STL * BLK, awarding defenders that can disrupt in multiple ways."
+        },
+
+        "Deflections": {
+          "weight": 0.20,
+          "description": "Deflections per 100 possessions."
+        },
+
+        "Dist": {
+          "weight": 0.15,
+          "description": "Distance covered on defense per 100 possessions."
+        }
+      }
+    },
+
+    "RimProtection": {
+      "description": "Ability to protect the rim.",
+
+      "weight": 0.35,
+
+      "stats": {
+        "adjPMRim": {
+          "weight": 0.5,
+          "description": "FG%+- when closest defender on shots taken within 6 ft of the rim."
+        },
+
+        "Blk": {
+          "weight": 0.4,
+          "description": "Blocks per 100 possessions.",
+        },
+
+        "ContestedShots": {
+          "weight": 0.1,
+          "description": "Contested shots per 100 possessions."
+        }
+      }
+    },
+
+    "Assignment": {
+      "description": "Ability to guard players one-on-one.",
+
+      "weight": 0.30,
+
+      "stats": {
+        "MatchupDiff": {
+          "weight": 0.45,
+          "description": "Matchup difficulty, calculated by weighted average of PTS/100 of opponents guarded."
+        },
+
+        "AdjPMAll": {
+          "weight": 0.35,
+          "description": "FG%+- when closest defender on shots anywhere."
+        },
+
+        "Strength": {
+          "weight": 0.20,
+          "description": "Maximum of normalized AdjPMRim and MatchupDiff scores."
+        }
+      }
+    },
+
+    "Coverage": {
+      "description": "Versatility as a defensive player.",
+
+      "weight": 0.10,
+
+      "stats": {
+        "Versatility": {
+          "weight": 0.8,
+          "description": "Matchup versatility, rewarding players that can guard multiple positions."
+        },
+
+        "Dist": {
+          "weight": 0.2,
+          "description": "Distance covered on defense per 100 possessions."
+        }
+      }
+    }
+  }
+}

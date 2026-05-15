@@ -1,0 +1,80 @@
+{
+  "pillars": {
+    "RimForce": {
+      "description": "Ability to pressure the rim and draw fouls.",
+
+      "weight": 0.30,
+
+      "stats": {
+        "PtsPaint": {
+          "weight": 0.45,
+          "description": "Points in the paint per 100 possessions."
+        },
+
+        "PFD": {
+          "weight": 0.35,
+          "description": "Fouls drawn per 100 possessions."
+        },
+
+        "PtsFB": {
+          "weight": 0.20,
+          "description": "Fastbreak points per 100 possessions."
+        }
+      }
+    },
+
+    "Explosiveness": {
+      "description": "Player explosiveness.",
+
+      "weight": 0.30,
+
+      "stats": {
+        "AdjBLK": {
+          "weight": 0.5,
+          "description": "Blocks per 100 possessions over expected based on height."
+        },
+
+        "PtsFB": {
+          "weight": 0.4,
+          "description": "Fastbreak points per 100 possessions."
+        }
+      }
+    },
+
+    "Rebounding": {
+      "description": "Contested rebounding ability.",
+
+      "weight": 0.30,
+
+      "stats": {
+        "AdjOREB": {
+          "weight": 0.6,
+          "description": "Contested offensive rebounds per 100 possessions over expected based on height."
+        },
+
+        "AdjDREB": {
+          "weight": 0.5,
+          "description": "Contested defensive rebounds per 100 possessions over expected based on height.."
+        }
+      }
+    },
+
+    "Motor": {
+      "description": "Ability to do the little things and hustle.",
+
+      "weight": 0.10,
+
+      "stats": {
+        "Hustle": {
+          "weight": 0.8,
+          "description": "Loose balls recovered + charges drawn + 0.5 * box outs per 100 possessions."
+        },
+
+        "PtsFB": {
+          "weight": 0.2,
+          "description": "Fastbreak points per 100 possessions."
+        }
+      }
+    }
+  }
+}
