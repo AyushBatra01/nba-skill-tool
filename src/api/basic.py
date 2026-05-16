@@ -66,7 +66,8 @@ def per100(season, columns=None, sleep=1):
         return df
     return df[['PLAYER_ID', 'SEASON'] + columns]
 
-def get_height(season):
+def get_height(season, sleep=1):
+    time.sleep(sleep)
     resp = leaguedashplayerbiostats.LeagueDashPlayerBioStats(
         season=season_to_str(season),
         league_id='00',
@@ -77,6 +78,20 @@ def get_height(season):
     df = resp_to_df(resp)
     df = df.rename(columns={'PLAYER_HEIGHT_INCHES' : 'HEIGHT', 'PLAYER_WEIGHT' : 'WEIGHT'})
     return df[['PLAYER_ID', 'HEIGHT', 'WEIGHT']]
+
+def get_misc(season, sleep=1):
+    time.sleep(sleep)
+    resp = leaguedashplayerstats.LeagueDashPlayerStats(
+        season=season_to_str(season),
+        measure_type_detailed_defense="Misc",
+        per_mode_detailed="Totals",
+        league_id_nullable='00',
+        season_type_all_star='Regular Season',
+        timeout=60,
+        headers=headers
+    )
+    df = resp_to_df(resp)
+    return df[['PLAYER_ID', 'PTS_FB', 'PTS_PAINT', 'PFD']]
 
 def basic_info(season, minimum=100):
     min_df = minutes(season)
