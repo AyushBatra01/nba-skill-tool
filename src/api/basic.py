@@ -16,7 +16,7 @@ def minutes(season, sleep=1):
         headers=headers
     )
     df = resp_to_df(resp)
-    return df[['PLAYER_ID', 'PLAYER_NAME', 'TEAM_ABBREVIATION', 'MIN']]
+    return df[['PLAYER_ID', 'MIN']]
 
 def possessions(season, sleep=1):
     time.sleep(sleep)
@@ -79,6 +79,23 @@ def get_height(season, sleep=1):
     df = df.rename(columns={'PLAYER_HEIGHT_INCHES' : 'HEIGHT', 'PLAYER_WEIGHT' : 'WEIGHT'})
     return df[['PLAYER_ID', 'HEIGHT', 'WEIGHT']]
 
+def get_bio(season, sleep=1):
+    time.sleep(sleep)
+    resp = leaguedashplayerbiostats.LeagueDashPlayerBioStats(
+        season=season_to_str(season),
+        league_id='00',
+        season_type_all_star='Regular Season',
+        timeout=60,
+        headers=headers
+    )
+    df = resp_to_df(resp)
+    df = df.rename(columns={'PLAYER_HEIGHT_INCHES' : 'HEIGHT', 'PLAYER_WEIGHT' : 'WEIGHT'})
+    cols = [
+        'PLAYER_ID', 'PLAYER_NAME', 'TEAM_ID', 'TEAM_ABBREVIATION',
+        'AGE', 'HEIGHT', 'WEIGHT', 'COLLEGE', 'COUNTRY', 'DRAFT_YEAR', 'DRAFT_NUMBER'
+    ]
+    return df[cols]
+
 def get_misc(season, sleep=1):
     time.sleep(sleep)
     resp = leaguedashplayerstats.LeagueDashPlayerStats(
@@ -94,13 +111,17 @@ def get_misc(season, sleep=1):
     return df[['PLAYER_ID', 'PTS_FB', 'PTS_PAINT', 'PFD']]
 
 def basic_info(season, minimum=100):
+    bio_df = get_bio(season)
     min_df = minutes(season)
     poss_df = possessions(season)
-    info = min_df.merge(poss_df, on='PLAYER_ID', how='inner')
+    info = bio_df.merge(min_df, on='PLAYER_ID', how='inner')
+    info = info.merge(poss_df, on='PLAYER_ID', how='inner')
     info['SEASON'] = season
+    season_col = info.pop('SEASON')
+    info.insert(1, 'SEASON', season_col)
     info = info[info['MIN'] >= minimum]
-    info = info.rename(columns = {'TEAM_ABBREVIATION' : 'TEAM'})
-    return info[['PLAYER_ID', 'SEASON', 'PLAYER_NAME', 'TEAM', 'MIN', 'POSS']]
+    info = info.rename(columns={'TEAM_ABBREVIATION' : 'TEAM'})
+    return info
 
 
 
