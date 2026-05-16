@@ -58,18 +58,13 @@
 
       "stats": {
         "MatchupDiff": {
-          "weight": 0.45,
+          "weight": 0.6,
           "description": "Matchup difficulty, calculated by weighted average of PTS/100 of opponents guarded."
         },
 
         "AdjPMAll": {
-          "weight": 0.35,
+          "weight": 0.4,
           "description": "FG%+- when closest defender on shots anywhere."
-        },
-
-        "Strength": {
-          "weight": 0.20,
-          "description": "Maximum of normalized AdjPMRim and MatchupDiff scores."
         }
       }
     },

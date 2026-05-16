@@ -41,42 +41,41 @@ def get_offball_metrics(season, minimum=100):
 
     eps = 1e-8
 
+    # Normalize per 100
+    normalize_cols = [
+        'FG3A', 'FG3M', 'OFFSCREEN_PTS', 'OFFSCREEN_POSS', 'SPOTUP_PTS', 'SPOTUP_POSS',
+        'CUT_PTS', 'CUT_POSS', 'ROLLMAN_PTS', 'ROLLMAN_POSS', 'SCREEN_ASSISTS', 'DIST_MILES_OFF'
+    ]
+    for stat in normalize_cols:
+        base[stat] = 100 * base[stat] / base['POSS']
+
     # Box Score
-    base['FG3A_100'] = 100 * base['FG3A'] / base['POSS']
     base['3P%'] = base['FG3M'] / (base['FG3A'] + eps)
-    base['mult'] = 2 * (np.exp(base['FG3A_100']) / (1 + np.exp(base['FG3A_100'])) - 0.5)
+    base['mult'] = 2 * (np.exp(base['FG3A']) / (1 + np.exp(base['FG3A'])) - 0.5)
     base['TPP'] = base['3P%'] * base['mult']
-    base['TPS'] = (base['3P%'] ** 2) * base['FG3A_100']
+    base['TPS'] = (base['3P%'] ** 2) * base['FG3A']
     base['FTP'] = base['FTM'] / (base['FTA'] + eps)
     base['FTP'] = np.clip(base['FTP'], 0.5, 1.0)
     base['FT%'] = base['FTP'].copy()
 
     # Off Screen
-    base['OFFSCREEN_PTS_100'] = 100 * base['OFFSCREEN_PTS'] / base['POSS']
     base['OFFSCREEN_PPP'] = base['OFFSCREEN_PTS'] / (base['OFFSCREEN_POSS'] + eps)
-    base['OffScreen'] = base['OFFSCREEN_PTS_100'] * base['OFFSCREEN_PPP']
+    base['OffScreen'] = base['OFFSCREEN_PTS'] * base['OFFSCREEN_PPP']
 
     # Spot Up
-    base['SPOTUP_PTS_100'] = 100 * base['SPOTUP_PTS'] / base['POSS']
     base['SPOTUP_PPP'] = base['SPOTUP_PTS'] / (base['SPOTUP_POSS'] + eps)
-    base['SpotUp'] = base['SPOTUP_PTS_100'] * base['SPOTUP_PPP']
+    base['SpotUp'] = base['SPOTUP_PTS'] * base['SPOTUP_PPP']
 
     # Cuts
-    base['CUT_PTS_100'] = 100 * base['CUT_PTS'] / base['POSS']
     base['CUT_PPP'] = base['CUT_PTS'] / (base['CUT_POSS'] + eps)
-    base['Cut'] = base['CUT_PTS_100'] * base['CUT_PPP']
+    base['Cut'] = base['CUT_PTS'] * base['CUT_PPP']
 
     # P&R Rollman
-    base['ROLLMAN_PTS_100'] = 100 * base['ROLLMAN_PTS'] / base['POSS']
     base['ROLLMAN_PPP'] = base['ROLLMAN_PTS'] / (base['ROLLMAN_POSS'] + eps)
-    base['Rollman'] = base['ROLLMAN_PTS_100'] * base['ROLLMAN_PPP']
+    base['Rollman'] = base['ROLLMAN_PTS'] * base['ROLLMAN_PPP']
 
     # Screen Assists
-    base['ScreenAst'] = 100 * base['SCREEN_ASSISTS'] / base['POSS']
     base['3P_CUT_RATE'] = base['FG3A'] / (
                 base['FG3A'] + base['CUT_POSS'] + base['SCREEN_ASSISTS'] + base['ROLLMAN_POSS'] + eps)
-
-    # Distance
-    base['Dist'] = 100 * base['DIST_MILES_OFF'] / base['POSS']
 
     return base

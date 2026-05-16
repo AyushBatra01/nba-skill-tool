@@ -53,6 +53,18 @@ def get_creation_metrics(season, minimum=100):
 
     eps = 1e-8
 
+    # Normalize per 100
+    normalize_cols = [
+        'PTS', 'FGA', 'FTA', 'AST', 'TOV',
+        'DRIVES', 'DRIVE_PTS', 'DRIVE_AST', 'DRIVE_TOV',
+        'POST_TOUCHES', 'POST_TOUCH_PTS', 'POST_TOUCH_AST', 'POST_TOUCH_TOV',
+        'TOUCHES', 'TIME_OF_POSS',
+        'PASSES_MADE', 'FT_AST', 'SECONDARY_AST', 'POTENTIAL_AST', 'AST_PTS_CREATED',
+        'ISO_POSS', 'ISO_PTS', 'PNRBH_POSS', 'PNRBH_PTS', 'HANDOFF_POSS', 'HANDOFF_PTS'
+    ]
+    for stat in normalize_cols:
+        base[stat] = 100 * base[stat] / base['POSS']
+
     # Box Score Stats
     base['Shots'] = base['FGA'] + 0.44 * base['FTA']
     base['TSP'] = base['PTS'] / (2 * base['Shots'] + eps)
@@ -64,10 +76,8 @@ def get_creation_metrics(season, minimum=100):
 
     # Decision-Making + Advanced Passing
     base['POTENTIAL_AST'] = np.where(base['AST'] > base['POTENTIAL_AST'], base['AST'], base['POTENTIAL_AST'])
-    base['PA_100'] = 100 * base['POTENTIAL_AST'] / base['POSS']
     base['AST_RATE'] = (base['POTENTIAL_AST'] + base['SECONDARY_AST'] + base['FT_AST']) / (base['PASSES_MADE'] + eps)
     base['PTS_PER_AST'] = base['AST_PTS_CREATED'] / (base['AST'] + eps)
-    base['TOUCH_100'] = 100 * base['TOUCHES'] / base['POSS']
     base['SCORE_RATE'] = base['PTS'] / (base['TOUCHES'] + eps)
     base['SEC_PER_TOUCH'] = 60 * base['TIME_OF_POSS'] / (base['TOUCHES'] + eps)
     base['QuickDecision'] = 100 * (base['AST_RATE'] * base['PTS_PER_AST'] + base['SCORE_RATE']) / (base['SEC_PER_TOUCH'] + eps)
@@ -79,23 +89,21 @@ def get_creation_metrics(season, minimum=100):
     base['RIM_PTS'] = base['DRIVE_PTS'] + base['POST_TOUCH_PTS']
     base['RIM_AST'] = base['DRIVE_AST'] + base['POST_TOUCH_AST']
     base['RIM_TOV'] = base['DRIVE_TOV'] + base['POST_TOUCH_TOV']
-    base['RIM_100'] = 100 * base['RIM'] / base['POSS']
     base['RIM_RATE'] = base['RIM'] / (base['TOUCHES'] + eps)
     base['RIM_SCORE_RATE'] = (base['RIM_PTS'] + base['PTS_PER_AST'] * base['RIM_AST']) / (base['RIM'] + eps)
     base['RIM_TOV_RATE'] = base['RIM_TOV'] / (base['RIM'] + eps)
     base['RimPressure'] = base['RIM_RATE'] * (base['RIM_SCORE_RATE'] * (1 - base['RIM_TOV_RATE']))
 
     # Isolation
-    base['ISO_PTS_100'] = 100 * base['ISO_PTS'] / base['POSS']
     base['ISO_PPP'] = base['ISO_PTS'] / (base['ISO_POSS'] + eps)
-    base['Iso'] = base['ISO_PTS_100'] * base['ISO_PPP']
+    base['Iso'] = base['ISO_PTS'] * base['ISO_PPP']
 
     # PnR
-    base['PNR_PTS_100'] = 100 * (base['PNRBH_PTS'] + base['HANDOFF_PTS']) / base['POSS']
-    base['PNR_PPP'] = (base['PNRBH_PTS'] + base['HANDOFF_PTS']) / (base['PNRBH_POSS'] + base['HANDOFF_POSS'] + eps)
-    base['PnR'] = base['PNR_PTS_100'] * base['PNR_PPP']
+    base['PNR_PTS'] = base['PNRBH_PTS'] + base['HANDOFF_PTS']
+    base['PNR_PPP'] = base['PNR_PTS'] / (base['PNRBH_POSS'] + base['HANDOFF_POSS'] + eps)
+    base['PnR'] = base['PNR_PTS'] * base['PNR_PPP']
 
     # Style
-    base['ShotPARatio'] = base['Shots'] / (base['PA_100'] + eps)
+    base['ShotPARatio'] = base['Shots'] / (base['POTENTIAL_AST'] + eps)
 
     return base
