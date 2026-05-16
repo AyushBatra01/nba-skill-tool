@@ -23,7 +23,7 @@
       }
     },
 
-    "Movement": {
+    "Spacing": {
       "description": "Ability to occupy defenders on the perimeter by being a threat as a movement shooter.",
 
       "weight": 0.30,
@@ -64,7 +64,7 @@
       }
     },
 
-    "Motor": {
+    "Movement": {
       "description": "Amount of movement a player provides offensively.",
 
       "weight": 0.05,

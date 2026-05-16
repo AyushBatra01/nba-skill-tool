@@ -75,9 +75,9 @@
       "weight": 0.10,
 
       "stats": {
-        "MatchupVers": {
+        "ClipMatchupVers": {
           "weight": 0.8,
-          "description": "Matchup versatility, rewarding players that can guard multiple positions."
+          "description": "Matchup versatility, rewarding players that can guard multiple positions (clipped)."
         },
 
         "DistMilesDef": {

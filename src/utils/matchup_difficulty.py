@@ -61,6 +61,12 @@ def matchup_difficulty(season, min_poss=200):
         .apply(lambda x: -(x * np.log(x + 1e-8)).sum() / np.log(5))
         .reset_index(name='MatchupVers')
     )
+    position_fractions = grouped.pivot(
+        index='DEF_PLAYER_ID',
+        columns='POSITION',
+        values='FRACTION'
+    ).fillna(0).reset_index()
+    versatility = versatility.merge(position_fractions, on='DEF_PLAYER_ID', how='left')
 
     # Matchup Difficulty
     matchups['weighted_PTS'] = matchups['PARTIAL_POSS'] * matchups['OFF_PTS']
@@ -70,4 +76,4 @@ def matchup_difficulty(season, min_poss=200):
     by_defender = by_defender.merge(versatility, on='DEF_PLAYER_ID', how='inner')
     by_defender = by_defender.rename(columns={'DEF_PLAYER_ID': 'PLAYER_ID'})
 
-    return by_defender[['PLAYER_ID', 'MatchupDiff', 'MatchupVers']]
+    return by_defender[['PLAYER_ID', 'PG', 'SG', 'SF', 'PF', 'C', 'MatchupVers', 'MatchupDiff']]

@@ -54,6 +54,6 @@ def get_defense_metrics(season, minimum=100):
     base['AdjPMRim'] = -1 * base['PM_rim'] * np.sqrt(base['D_FGA_rim'])
 
     # Clip Versatility
-    base['MatchupVers'] = np.clip(base['MatchupVers'], 0.9, 1.0)
+    base['ClipMatchupVers'] = np.clip(base['MatchupVers'], 0.9, 1.0)
 
     return base

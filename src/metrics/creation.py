@@ -100,7 +100,8 @@ def get_creation_metrics(season, minimum=100):
 
     # PnR
     base['PNR_PTS'] = base['PNRBH_PTS'] + base['HANDOFF_PTS']
-    base['PNR_PPP'] = base['PNR_PTS'] / (base['PNRBH_POSS'] + base['HANDOFF_POSS'] + eps)
+    base['PNR_POSS'] = base['PNRBH_POSS'] + base['HANDOFF_POSS']
+    base['PNR_PPP'] = base['PNR_PTS'] / (base['PNR_POSS'] + eps)
     base['PnR'] = base['PNR_PTS'] * base['PNR_PPP']
 
     # Style

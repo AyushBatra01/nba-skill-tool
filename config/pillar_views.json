@@ -1,15 +1,189 @@
 {
   "Creation": {
-    "Scoring": {
-      "columns": [
+    "Scoring": [
+      "PTS",
+      "Shots",
+      "TSP",
+      "Iso_PTS",
+      "Iso_POSS",
+      "Iso_PPP",
+      "PNR_PTS",
+      "PNR_POSS",
+      "PNR_PPP",
+      "Score_z",
+      "Iso_z",
+      "PnR_z",
+      "TSP_z",
+      "Scoring"
+    ],
 
-      ]
-    },
+    "Playmaking": [
+      "AST",
+      "TOV",
+      "TOVP",
+      "AST_RATE",
+      "PTS_PER_AST",
+      "SCORE_RATE",
+      "Pass_z",
+      "QuickDecision_z",
+      "TOVP_z",
+      "Playmaking"
+    ],
 
-    "Playmaking": {
-      "columns": [
+    "DualThreat": [
+      "PTS",
+      "AST",
+      "Shots",
+      "TOV",
+      "Score",
+      "Pass",
+      "Double_z",
+      "Add_z",
+      "DualThreat"
+    ],
 
-      ]
-    }
+    "Pressure": [
+      "RIM",
+      "RIM_PTS",
+      "RIM_AST",
+      "RIM_RATE",
+      "RIM_SCORE_RATE",
+      "RIM_TOV_RATE",
+      "RimPressure_z",
+      "QuickDecision_z",
+      "Pressure"
+    ]
+  },
+
+  "OffBall": {
+    "Shooting": [
+      "FG3A",
+      "3P%",
+      "FT%",
+      "TPP_z",
+      "TPS_z",
+      "FTP_z",
+      "Shooting"
+    ],
+
+    "Spacing": [
+      "OffScreen_PTS",
+      "OffScreen_POSS",
+      "OffScreen_PPP",
+      "SpotUp_PTS",
+      "SpotUp_POSS",
+      "SpotUp_PPP",
+      "OffScreen_z",
+      "SpotUp_z",
+      "Movement"
+    ],
+
+    "Interior": [
+      "Cut_PTS",
+      "Cut_POSS",
+      "Cut_PPP",
+      "Rollman_PTS",
+      "Rollman_POSS",
+      "Rollman_PPP",
+      "ScreenAst",
+      "Cut_z",
+      "Rollman_z",
+      "ScreenAst_z",
+      "Interior"
+    ],
+
+    "Movement": [
+      "DistMilesOff",
+      "Motor"
+    ]
+  },
+
+  "Defense": {
+    "Disruption": [
+      "STL",
+      "BLK",
+      "Deflections",
+      "DistMilesDef",
+      "Stock_z",
+      "Double_z",
+      "Deflections_z",
+      "DistMilesDef_z",
+      "Disruption"
+    ],
+
+    "RimProtection": [
+      "D_FGA_rim",
+      "PM_rim",
+      "BLK",
+      "ContestedShots",
+      "AdjPMRim_z",
+      "BLK_z",
+      "ContestedShots_z",
+      "RimProtection"
+    ],
+
+    "Assignment": [
+      "MatchupDiff",
+      "D_FGA_all",
+      "PM_all",
+      "MatchupDiff_z",
+      "AdjPMAll_z",
+      "Assignment"
+    ],
+
+    "Versatility": [
+      "DistMilesDef",
+      "PG",
+      "SG",
+      "SF",
+      "PF",
+      "C",
+      "MatchupVers",
+      "ClipMatchupVers",
+      "ClipMatchupVers_z",
+      "DistMilesDef_z",
+      "Versatility"
+    ]
+  },
+
+  "Physicality": {
+    "RimForce": [
+      "PTS_PAINT",
+      "PFD",
+      "PTS_FB",
+      "PTS_PAINT_z",
+      "PFD_z",
+      "PTS_FB_z",
+      "RimForce"
+    ],
+
+    "Explosiveness": [
+      "Height",
+      "BLK",
+      "PTS_FB",
+      "AdjBLK_z",
+      "PTS_FB_z",
+      "Explosiveness"
+    ],
+
+    "Rebounding": [
+      "Height",
+      "OREB_CONTEST",
+      "DREB_CONTEST",
+      "AdjOREB_z",
+      "AdjDREB_z",
+      "Rebounding"
+    ],
+
+    "Motor": [
+      "LOOSE_BALLS_RECOVERED",
+      "CHARGES_DRAWN",
+      "BOX_OUTS",
+      "Hustle",
+      "PTS_FB",
+      "Hustle_z",
+      "PTS_FB_z",
+      "Motor"
+    ]
   }
 }
