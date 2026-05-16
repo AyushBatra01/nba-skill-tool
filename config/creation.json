@@ -41,7 +41,7 @@
 
         "QuickDecision": {
           "weight": 0.2,
-          "description": "Decision-Making score, accounting for assists per pass made, points per touch, and seconds per touch; rewards players with high impact and low time per touch.",
+          "description": "Decision-Making score, accounting for assists per pass made, points per touch, and seconds per touch; rewards players with high impact and low time per touch."
         },
 
         "TOVP": {

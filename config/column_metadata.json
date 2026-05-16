@@ -1,0 +1,16 @@
+{
+  "Rating": {
+    "display_name": "Overall Score",
+    "description": "Composite rating, including creation, off-ball offense, defense, and physicality."
+  },
+
+  "Role": {
+    "display_name": "Role Score",
+    "description": "Ability to affect the game without the ball, including off-ball offense, defense, and physicality"
+  },
+
+  "Creation": {
+    "display_name": "TBD",
+    "description": "TBD"
+  }
+}

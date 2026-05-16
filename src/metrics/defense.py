@@ -3,10 +3,10 @@ import numpy as np
 
 from src.utils.matchup_difficulty import matchup_difficulty
 
-from src.api.basic import traditional, possessions
-from src.api.defense import def_tracking
-from src.api.hustle import hustle
-from src.api.tracking import tracking_raw
+from src.nba_api_wrapper.basic import traditional, possessions
+from src.nba_api_wrapper.defense import def_tracking
+from src.nba_api_wrapper.hustle import hustle
+from src.nba_api_wrapper.tracking import tracking_raw
 
 def get_defense_metrics(season, minimum=100):
     # Retrieve Data

@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
 
-from src.api.basic import traditional, possessions
-from src.api.tracking import tracking_raw
-from src.api.playtype import playtype_raw
+from src.nba_api_wrapper.basic import traditional, possessions
+from src.nba_api_wrapper.tracking import tracking_raw
+from src.nba_api_wrapper.playtype import playtype_raw
 
 def get_creation_metrics(season, minimum=100):
     # Retrieve Data

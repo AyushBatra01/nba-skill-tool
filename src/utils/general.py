@@ -21,9 +21,4 @@ def season_to_str(season):
     return f"{season - 1}-{season % 100}"
 
 def standardize(arr):
-    return (arr - np.mean(arr)) / np.std(arr)
-
-def z_many(data, cols):
-    for col in cols:
-        data[col] = standardize(data[col])
-    return data
+    return (arr - np.mean(arr)) / (np.std(arr) + 1e-8)

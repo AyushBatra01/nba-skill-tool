@@ -41,7 +41,7 @@
 
         "BLK": {
           "weight": 0.4,
-          "description": "Blocks per 100 possessions.",
+          "description": "Blocks per 100 possessions."
         },
 
         "ContestedShots": {

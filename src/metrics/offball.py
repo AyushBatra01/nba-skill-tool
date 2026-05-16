@@ -1,10 +1,10 @@
 import pandas as pd
 import numpy as np
 
-from src.api.basic import traditional, possessions
-from src.api.tracking import tracking_raw
-from src.api.playtype import playtype_raw
-from src.api.hustle import hustle
+from src.nba_api_wrapper.basic import traditional, possessions
+from src.nba_api_wrapper.tracking import tracking_raw
+from src.nba_api_wrapper.playtype import playtype_raw
+from src.nba_api_wrapper.hustle import hustle
 
 def get_offball_metrics(season, minimum=100):
     # Retrieve Data

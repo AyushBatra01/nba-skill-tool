@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
 
-from src.api.basic import per100, possessions, get_height
-from src.api.defense import get_matchups
+from src.nba_api_wrapper.basic import per100, possessions, get_height
+from src.nba_api_wrapper.defense import get_matchups
 
 def assign_positions(df, min_poss):
     # Filter

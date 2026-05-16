@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
 
-from src.api.basic import traditional, possessions, get_misc, get_height
-from src.api.tracking import tracking_raw
-from src.api.hustle import hustle
+from src.nba_api_wrapper.basic import traditional, possessions, get_misc, get_height
+from src.nba_api_wrapper.tracking import tracking_raw
+from src.nba_api_wrapper.hustle import hustle
 from sklearn.linear_model import LinearRegression
 
 def residual(df, x, y):

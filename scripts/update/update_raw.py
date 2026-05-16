@@ -1,7 +1,7 @@
 import pandas as pd
 
 from src.db.save import save_table
-from src.api.basic import basic_info
+from src.nba_api_wrapper.basic import basic_info
 
 SEASON_START = 2018
 SEASON_END = 2026
