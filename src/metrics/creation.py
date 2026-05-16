@@ -47,9 +47,9 @@ def get_creation_metrics(season, minimum=100):
     base = base.merge(postup, on='PLAYER_ID', how='left').fillna(0)
     base = base.merge(touches, on='PLAYER_ID', how='left').fillna(0)
     base = base.merge(passing, on='PLAYER_ID', how='left').fillna(0)
-    base = base.merge(iso, on='PLAYER_ID', how='left')
-    base = base.merge(pr_ball, on='PLAYER_ID', how='left')
-    base = base.merge(handoff, on='PLAYER_ID', how='left')
+    base = base.merge(iso, on='PLAYER_ID', how='left').fillna(0)
+    base = base.merge(pr_ball, on='PLAYER_ID', how='left').fillna(0)
+    base = base.merge(handoff, on='PLAYER_ID', how='left').fillna(0)
 
     eps = 1e-8
 
@@ -86,19 +86,13 @@ def get_creation_metrics(season, minimum=100):
     base['RimPressure'] = base['RIM_RATE'] * (base['RIM_SCORE_RATE'] * (1 - base['RIM_TOV_RATE']))
 
     # Isolation
-    base['ISO_PTS'] = base['ISO_PTS'].fillna(0)
-    base['ISO_POSS'] = base['ISO_POSS'].fillna(1)
     base['ISO_PTS_100'] = 100 * base['ISO_PTS'] / base['POSS']
-    base['ISO_PPP'] = base['ISO_PTS'] / base['ISO_POSS']
+    base['ISO_PPP'] = base['ISO_PTS'] / (base['ISO_POSS'] + eps)
     base['Iso'] = base['ISO_PTS_100'] * base['ISO_PPP']
 
     # PnR
-    for col in ['PNRBH_PTS', 'HANDOFF_PTS']:
-        base[col] = base[col].fillna(0)
-    for col in ['PNRBH_POSS', 'HANDOFF_POSS']:
-        base[col] = base[col].fillna(1)
     base['PNR_PTS_100'] = 100 * (base['PNRBH_PTS'] + base['HANDOFF_PTS']) / base['POSS']
-    base['PNR_PPP'] = (base['PNRBH_PTS'] + base['HANDOFF_PTS']) / (base['PNRBH_POSS'] + base['HANDOFF_POSS'])
+    base['PNR_PPP'] = (base['PNRBH_PTS'] + base['HANDOFF_PTS']) / (base['PNRBH_POSS'] + base['HANDOFF_POSS'] + eps)
     base['PnR'] = base['PNR_PTS_100'] * base['PNR_PPP']
 
     # Style
