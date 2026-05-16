@@ -49,7 +49,7 @@ def get_physicality_metrics(season, minimum=100):
     base['AdjBLK'] = residual(base, x='HEIGHT', y='BLK')
 
     # Hustle
-    base['HUSTLE'] = base['LOOSE_BALLS_RECOVERED'] + base['CHARGES_DRAWN'] + base['BOX_OUTS']/2
+    base['Hustle'] = base['LOOSE_BALLS_RECOVERED'] + base['CHARGES_DRAWN'] + base['BOX_OUTS']/2
 
     return base
 

@@ -6,7 +6,7 @@
       "weight": 0.30,
 
       "stats": {
-        "PtsPaint": {
+        "PTS_PAINT": {
           "weight": 0.45,
           "description": "Points in the paint per 100 possessions."
         },
@@ -16,7 +16,7 @@
           "description": "Fouls drawn per 100 possessions."
         },
 
-        "PtsFB": {
+        "PTS_FB": {
           "weight": 0.20,
           "description": "Fastbreak points per 100 possessions."
         }
@@ -34,7 +34,7 @@
           "description": "Blocks per 100 possessions over expected based on height."
         },
 
-        "PtsFB": {
+        "PTS_FB": {
           "weight": 0.4,
           "description": "Fastbreak points per 100 possessions."
         }
@@ -70,7 +70,7 @@
           "description": "Loose balls recovered + charges drawn + 0.5 * box outs per 100 possessions."
         },
 
-        "PtsFB": {
+        "PTS_FB": {
           "weight": 0.2,
           "description": "Fastbreak points per 100 possessions."
         }

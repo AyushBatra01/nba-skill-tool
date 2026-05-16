@@ -26,6 +26,8 @@ def get_offball_metrics(season, minimum=100):
     spotup = spotup.rename(columns={'POSS': 'SPOTUP_POSS', 'PTS': 'SPOTUP_PTS'})
     cut = cut.rename(columns={'POSS': 'CUT_POSS', 'PTS': 'CUT_PTS'})
     roll = roll.rename(columns={'POSS': 'ROLLMAN_POSS', 'PTS': 'ROLLMAN_PTS'})
+    screen = screen.rename(columns={'SCREEN_ASSISTS' : 'ScreenAst'})
+    dist = dist.rename(columns={'DIST_MILES_OFF' : 'DistMilesOff'})
 
     # Filter
     base = base[base['MIN'] >= minimum]
@@ -44,7 +46,7 @@ def get_offball_metrics(season, minimum=100):
     # Normalize per 100
     normalize_cols = [
         'FG3A', 'FG3M', 'OFFSCREEN_PTS', 'OFFSCREEN_POSS', 'SPOTUP_PTS', 'SPOTUP_POSS',
-        'CUT_PTS', 'CUT_POSS', 'ROLLMAN_PTS', 'ROLLMAN_POSS', 'SCREEN_ASSISTS', 'DIST_MILES_OFF'
+        'CUT_PTS', 'CUT_POSS', 'ROLLMAN_PTS', 'ROLLMAN_POSS', 'ScreenAst', 'DistMilesOff'
     ]
     for stat in normalize_cols:
         base[stat] = 100 * base[stat] / base['POSS']
@@ -76,6 +78,6 @@ def get_offball_metrics(season, minimum=100):
 
     # Screen Assists
     base['3P_CUT_RATE'] = base['FG3A'] / (
-                base['FG3A'] + base['CUT_POSS'] + base['SCREEN_ASSISTS'] + base['ROLLMAN_POSS'] + eps)
+                base['FG3A'] + base['CUT_POSS'] + base['ScreenAst'] + base['ROLLMAN_POSS'] + eps)
 
     return base

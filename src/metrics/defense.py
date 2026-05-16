@@ -21,6 +21,8 @@ def get_defense_metrics(season, minimum=100):
     # Rename
     track_all = track_all.rename(columns={'PCT_PLUSMINUS': 'PM_all', 'D_FGA': 'D_FGA_all'})
     track_rim = track_rim.rename(columns={'PLUSMINUS': 'PM_rim', 'FGA_LT_06': 'D_FGA_rim'})
+    hust = hust.rename(columns={'DEFLECTIONS' : 'Deflections', 'CONTESTED_SHOTS' : 'ContestedShots'})
+    dist = dist.rename(columns={'DIST_MILES_DEF' : 'DistMilesDef'})
 
     # Filter
     base = base[base['MIN'] >= minimum]
@@ -38,7 +40,7 @@ def get_defense_metrics(season, minimum=100):
     # Normalize per 100
     normalize_cols = [
         'STL', 'BLK', 'D_FGA_all', 'D_FGA_rim',
-        'DEFLECTIONS', 'CONTESTED_SHOTS', 'DIST_MILES_DEF'
+        'Deflections', 'ContestedShots', 'DistMilesDef'
     ]
     for stat in normalize_cols:
         base[stat] = 100 * base[stat] / base['POSS']
@@ -48,10 +50,10 @@ def get_defense_metrics(season, minimum=100):
     base['Double'] = base['STL'] * base['BLK']
 
     # Tracking
-    base['adj_PM_all'] = -1 * base['PM_all'] * np.sqrt(base['D_FGA_all'])
-    base['adj_PM_rim'] = -1 * base['PM_rim'] * np.sqrt(base['D_FGA_rim'])
+    base['AdjPMAll'] = -1 * base['PM_all'] * np.sqrt(base['D_FGA_all'])
+    base['AdjPMRim'] = -1 * base['PM_rim'] * np.sqrt(base['D_FGA_rim'])
 
     # Clip Versatility
-    base['Matchup_Vers'] = np.clip(base['Matchup_Vers'], 0.9, 1.0)
+    base['MatchupVers'] = np.clip(base['MatchupVers'], 0.9, 1.0)
 
     return base

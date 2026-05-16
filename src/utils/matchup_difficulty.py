@@ -59,15 +59,15 @@ def matchup_difficulty(season, min_poss=200):
     versatility = (
         grouped.groupby('DEF_PLAYER_ID')['FRACTION']
         .apply(lambda x: -(x * np.log(x + 1e-8)).sum() / np.log(5))
-        .reset_index(name='Matchup_Vers')
+        .reset_index(name='MatchupVers')
     )
 
     # Matchup Difficulty
     matchups['weighted_PTS'] = matchups['PARTIAL_POSS'] * matchups['OFF_PTS']
     by_defender = matchups.groupby('DEF_PLAYER_ID')[['weighted_PTS', 'PARTIAL_POSS']].sum()
-    by_defender['Matchup_Diff'] = by_defender['weighted_PTS'] / by_defender['PARTIAL_POSS']
+    by_defender['MatchupDiff'] = by_defender['weighted_PTS'] / by_defender['PARTIAL_POSS']
     by_defender = by_defender.reset_index()
     by_defender = by_defender.merge(versatility, on='DEF_PLAYER_ID', how='inner')
     by_defender = by_defender.rename(columns={'DEF_PLAYER_ID': 'PLAYER_ID'})
 
-    return by_defender[['PLAYER_ID', 'Matchup_Diff', 'Matchup_Vers']]
+    return by_defender[['PLAYER_ID', 'MatchupDiff', 'MatchupVers']]

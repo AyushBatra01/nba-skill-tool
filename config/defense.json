@@ -21,7 +21,7 @@
           "description": "Deflections per 100 possessions."
         },
 
-        "Dist": {
+        "DistMilesDef": {
           "weight": 0.15,
           "description": "Distance covered on defense per 100 possessions."
         }
@@ -34,12 +34,12 @@
       "weight": 0.35,
 
       "stats": {
-        "adjPMRim": {
+        "AdjPMRim": {
           "weight": 0.5,
           "description": "FG%+- when closest defender on shots taken within 6 ft of the rim."
         },
 
-        "Blk": {
+        "BLK": {
           "weight": 0.4,
           "description": "Blocks per 100 possessions.",
         },
@@ -69,18 +69,18 @@
       }
     },
 
-    "Coverage": {
+    "Versatility": {
       "description": "Versatility as a defensive player.",
 
       "weight": 0.10,
 
       "stats": {
-        "Versatility": {
+        "MatchupVers": {
           "weight": 0.8,
           "description": "Matchup versatility, rewarding players that can guard multiple positions."
         },
 
-        "Dist": {
+        "DistMilesDef": {
           "weight": 0.2,
           "description": "Distance covered on defense per 100 possessions."
         }

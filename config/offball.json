@@ -70,7 +70,7 @@
       "weight": 0.05,
 
       "stats": {
-        "Dist": {
+        "DistMilesOff": {
           "weight": 1,
           "description": "Offensive distance moved per 100 possessions."
         }
