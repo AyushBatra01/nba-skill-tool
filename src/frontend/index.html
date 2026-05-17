@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Skills Leaderboard</title>
+    <meta name="description" content="An interactive leaderboard displaying NBA player skills and performance percentiles.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <h1>NBA Skills Leaderboard</h1>
+            <p>Explore comprehensive player evaluations and percentiles across multiple skills and pillars.</p>
+        </div>
+    </header>
+
+    <main class="app-main">
+        <section class="controls glass-panel">
+            <div class="control-group">
+                <label for="table-type">Table Type</label>
+                <select id="table-type">
+                    <option value="overall">Overall</option>
+                    <option value="skill">Skill</option>
+                    <option value="pillar">Pillar</option>
+                </select>
+            </div>
+
+            <div class="control-group" id="skill-group" style="display: none;">
+                <label for="skill-select">Skill</label>
+                <select id="skill-select">
+                    <option value="Creation">Creation</option>
+                    <option value="OffBall">Off-Ball</option>
+                    <option value="Defense">Defense</option>
+                    <option value="Physicality">Physicality</option>
+                </select>
+            </div>
+
+            <div class="control-group" id="pillar-group" style="display: none;">
+                <label for="pillar-select">Pillar</label>
+                <select id="pillar-select">
+                    <!-- Populated dynamically via JS based on selected skill -->
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="season-select">Season</label>
+                <select id="season-select">
+                    <option value="2024" selected>2023-24</option>
+                    <option value="2023">2022-23</option>
+                    <option value="2022">2021-22</option>
+                    <option value="2021">2020-21</option>
+                </select>
+            </div>
+
+            <div class="control-group slider-group">
+                <label for="min-minutes">Min Minutes: <span id="min-minutes-val">500</span></label>
+                <div class="slider-container">
+                    <input type="range" id="min-minutes" min="100" max="3000" step="50" value="500">
+                </div>
+            </div>
+
+            <div class="control-group button-group">
+                <button id="update-btn" class="primary-btn">Update Table</button>
+            </div>
+        </section>
+
+        <section class="table-container glass-panel">
+            <div id="loading" class="loading-overlay" style="display: none;">
+                <div class="spinner"></div>
+            </div>
+            <div class="table-scroll">
+                <table id="leaderboard-table">
+                    <thead>
+                        <tr id="table-head-row">
+                            <!-- Populated dynamically via JS -->
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Populated dynamically via JS -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="empty-state" class="empty-state" style="display: none;">
+                <p>No data available for the selected filters.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -44,7 +44,7 @@
           "description": "Decision-Making score, accounting for assists per pass made, points per touch, and seconds per touch; rewards players with high impact and low time per touch."
         },
 
-        "TOVP": {
+        "negTOVP": {
           "weight": 0.1,
           "description": "Turnover Rate."
         }

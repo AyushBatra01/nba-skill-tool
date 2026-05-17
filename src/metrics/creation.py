@@ -69,6 +69,7 @@ def get_creation_metrics(season, minimum=100):
     base['Shots'] = base['FGA'] + 0.44 * base['FTA']
     base['TSP'] = base['PTS'] / (2 * base['Shots'] + eps)
     base['TOVP'] = base['TOV'] / (base['Shots'] + base['TOV'] + eps)
+    base['negTOVP'] = -1 * base['TOVP']
     base['Score'] = base['PTS'] * base['TSP']
     base['Pass'] = base['AST'] * base['AST'] / (base['AST'] + base['TOV'] + eps)
     base['Double'] = base['Score'] * base['Pass']

@@ -8,6 +8,7 @@ def playtype_raw(season, playtype, columns=None, sleep=1):
     time.sleep(sleep)
     resp = synergyplaytypes.SynergyPlayTypes(
         play_type_nullable=playtype,
+        type_grouping_nullable = "offensive",
         player_or_team_abbreviation='P',
         season=season_to_str(season),
         per_mode_simple='Totals',
