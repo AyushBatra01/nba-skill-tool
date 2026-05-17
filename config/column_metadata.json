@@ -1,16 +1,406 @@
 {
   "Rating": {
-    "display_name": "Overall Score",
-    "description": "Composite rating, including creation, off-ball offense, defense, and physicality."
+    "display_name": "Overall",
+    "description": "Composite rating, including creation, off-ball offense, defense, and physicality.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "score"
   },
 
   "Role": {
-    "display_name": "Role Score",
-    "description": "Ability to affect the game without the ball, including off-ball offense, defense, and physicality"
+    "display_name": "Role",
+    "description": "Ability to affect the game without the ball, including off-ball offense, defense, and physicality.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "score"
   },
 
   "Creation": {
-    "display_name": "TBD",
-    "description": "TBD"
+    "display_name": "Creation",
+    "description": "Ability to create offense for self or teammates.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "skill"
+  },
+
+  "OffBall": {
+    "display_name": "Off Ball",
+    "description": "Ability to occupy defenses off the ball by shooting or screening/cutting.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "skill"
+  },
+
+  "Defense": {
+    "display_name": "Defense",
+    "description": "Defensive Ability.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "skill"
+  },
+
+  "Physicality": {
+    "display_name": "Physicality",
+    "description": "Athletic, rebounding, rim pressure, and hustle traits.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "skill"
+  },
+
+  "Scoring": {
+    "display_name": "Scoring",
+    "description": "Scoring and on-ball offense ability.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "pillar"
+  },
+
+  "Playmaking": {
+    "display_name": "Playmaking",
+    "description": "Passing and Playmaking Ability.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "pillar"
+  },
+
+  "DualThreat": {
+    "display_name": "Dual Threat",
+    "description": "Ability to attack defenses as both a scoring and playmaking threat simultaneously.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "pillar"
+  },
+
+  "Pressure": {
+    "display_name": "Rim Pressure",
+    "description": "Ability to pressure the rim through drives or post-ups.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "pillar"
+  },
+
+  "Shooting": {
+    "display_name": "Shooting",
+    "description": "Ability to create spacing pressure through shooting volume and efficiency.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "pillar"
+  },
+
+  "Spacing": {
+    "display_name": "Spacing",
+    "description": "Ability to occupy defenders on the perimeter by being a threat as a spot-up or movement shooter.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "pillar"
+  },
+
+  "Interior": {
+    "display_name": "Interior",
+    "description": "Ability to produce off-ball actions through cuts and ballscreens.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "pillar"
+  },
+
+  "Movement": {
+    "display_name": "Movement",
+    "description": "Amount of movement a player provides offensively.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "pillar"
+  },
+
+  "Disruption": {
+    "display_name": "Disruption",
+    "description": "Ability to disrupt offenses through blocks, steals, and deflections.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "pillar"
+  },
+
+  "RimProtection": {
+    "display_name": "Rim Protection",
+    "description": "Ability to affect shots at the rim.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "pillar"
+  },
+
+  "Assignment": {
+    "display_name": "Matchups",
+    "description": "Ability to guard players one-on-one.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "pillar"
+  },
+
+  "Versatility": {
+    "display_name": "Versatility",
+    "description": "Ability to guard multiple positions and move around defensively.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "pillar"
+  },
+
+  "RimForce": {
+    "display_name": "Rim Force",
+    "description": "Ability to pressure the rim and draw fouls.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "pillar"
+  },
+
+  "Explosiveness": {
+    "display_name": "Explosiveness",
+    "description": "Speed and vertical ability, measured by fastbreak points and blocks over expected based on height.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "pillar"
+  },
+
+  "Rebounding": {
+    "display_name": "Rebounding",
+    "description": "Contested rebounding ability.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "pillar"
+  },
+
+  "Motor": {
+    "display_name": "Motor",
+    "description": "Ability to hustle via recovering loose balls, drawing charges, boxing out, and scoring on fastbreak.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "pillar"
+  },
+
+  "PTS": {
+    "display_name": "PTS/100",
+    "description": "Points scored per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "Shots": {
+    "display_name": "Shots/100",
+    "description": "True shooting possessions (FGA + 0.44 * FTA) per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "TSP": {
+    "display_name": "TS%",
+    "description": "True shooting percentage (PTS / (2 * (FGA + 0.44 * FTA))).",
+    "decimals": 3,
+    "percent": true,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "ISO_PTS": {
+    "display_name": "Iso PTS/100",
+    "description": "Isolation points scored per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "ISO_POSS": {
+    "display_name": "Iso POSS/100",
+    "description": "Isolation possessions per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "ISO_PPP": {
+    "display_name": "Iso PPP",
+    "description": "Isolation points per possession.",
+    "decimals": 3,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "PNR_PTS": {
+    "display_name": "PnR PTS/100",
+    "description": "Pick & Roll Ball Handling or Handoff points scored per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "PNR_POSS": {
+    "display_name": "PnR POSS/100",
+    "description": "Pick & Roll Ball Handling or Handoff possessions per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "PNR_PPP": {
+    "display_name": "PnR PPP",
+    "description": "Points per possession on pick & roll ball handling or handoff plays.",
+    "decimals": 3,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "Score_z": {
+    "display_name": "Score",
+    "description": "Standardized version of Scoring rating (PTS * TS%)",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "Iso_z": {
+    "display_name": "Iso",
+    "description": "Standardized version of Iso rating (ISO PTS * ISO PPP)",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "PnR_z": {
+    "display_name": "PnR",
+    "description": "Standardized version of Pick&Roll rating (PnR PTS * PnR PPP)",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "TSP_z": {
+    "display_name": "TS% (z)",
+    "description": "Standardized version of true shooting %",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "AST": {
+    "display_name": "AST/100",
+    "description": "Assists per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "TOV": {
+    "display_name": "TOV/100",
+    "description": "turnovers per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": false,
+    "type": "raw"
+  },
+
+  "TOVP": {
+    "display_name": "TOV%",
+    "description": "Turnover Rate (TOV / (FGA + 0.44 * FTA + TOV).",
+    "decimals": 3,
+    "percent": true,
+    "higher_is_better": false,
+    "type": "rate"
+  },
+
+  "AST_RATE": {
+    "display_name": "AST / Pass",
+    "description": "% of passes made ending in a potential assist, secondary assist, or free throw assist.",
+    "decimals": 3,
+    "percent": true,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "PTS_PER_AST": {
+    "display_name": "PTS per AST",
+    "description": "Average teammate points scored per assist.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "SCORE_RATE": {
+    "display_name": "Pts/Touch",
+    "description": "Points per touch.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "SEC_PER_TOUCH": {
+    "display_name": "Avg Touch Time",
+    "description": "Seconds per touch.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "Pass_z": {
+    "display_name": "Pass",
+    "description": "Standardized version of Passing rating (AST * (AST / (AST + TOV))).",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "QuickDecision_z": {
+    "display_name": "Quick Decision",
+    "description": "Standardized version of Decision-Making score [(Pts/Ast * AstRate + ScoreRate)/(Sec/Touch)]",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "negTOVP_z": {
+    "display_name": "TOV% (z)",
+    "description": "Standardized version of TOV%.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
   }
 }
