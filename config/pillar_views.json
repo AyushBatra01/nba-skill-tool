@@ -24,6 +24,7 @@
       "AST_RATE",
       "PTS_PER_AST",
       "SCORE_RATE",
+      "SEC_PER_TOUCH",
       "Pass_z",
       "QuickDecision_z",
       "negTOVP_z",
