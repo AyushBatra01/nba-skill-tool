@@ -14,3 +14,12 @@ app.add_middleware(
 )
 
 app.include_router(leaderboard_router)
+
+# run from project root:
+# uvicorn src.api.main:app --port 8000 --reload
+
+# run in separate terminal (from frontend directory):
+# python -m http.server 3000
+
+# Open in browser:
+# http://localhost:3000

@@ -26,7 +26,7 @@
       "SCORE_RATE",
       "Pass_z",
       "QuickDecision_z",
-      "TOVP_z",
+      "negTOVP_z",
       "Playmaking"
     ],
 
@@ -67,24 +67,24 @@
     ],
 
     "Spacing": [
-      "OffScreen_PTS",
-      "OffScreen_POSS",
-      "OffScreen_PPP",
-      "SpotUp_PTS",
-      "SpotUp_POSS",
-      "SpotUp_PPP",
+      "OFFSCREEN_PTS",
+      "OFFSCREEN_POSS",
+      "OFFSCREEN_PPP",
+      "SPOTUP_PTS",
+      "SPOTUP_POSS",
+      "SPOTUP_PPP",
       "OffScreen_z",
       "SpotUp_z",
-      "Movement"
+      "Spacing"
     ],
 
     "Interior": [
-      "Cut_PTS",
-      "Cut_POSS",
-      "Cut_PPP",
-      "Rollman_PTS",
-      "Rollman_POSS",
-      "Rollman_PPP",
+      "CUT_PTS",
+      "CUT_POSS",
+      "CUT_PPP",
+      "ROLLMAN_PTS",
+      "ROLLMAN_POSS",
+      "ROLLMAN_PPP",
       "ScreenAst",
       "Cut_z",
       "Rollman_z",
@@ -94,7 +94,7 @@
 
     "Movement": [
       "DistMilesOff",
-      "Motor"
+      "Movement"
     ]
   },
 
@@ -158,7 +158,7 @@
     ],
 
     "Explosiveness": [
-      "Height",
+      "PHYS_HEIGHT",
       "BLK",
       "PTS_FB",
       "AdjBLK_z",
@@ -167,7 +167,7 @@
     ],
 
     "Rebounding": [
-      "Height",
+      "PHYS_HEIGHT",
       "OREB_CONTEST",
       "DREB_CONTEST",
       "AdjOREB_z",

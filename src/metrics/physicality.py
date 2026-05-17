@@ -7,8 +7,9 @@ from src.nba_api_wrapper.hustle import hustle
 from sklearn.linear_model import LinearRegression
 
 def residual(df, x, y):
-    model = LinearRegression().fit(X = df[[x]], y = df[y])
+    model = LinearRegression().fit(X=df[[x]], y=df[y])
     yhat = model.predict(df[[x]])
+    yhat = np.clip(yhat, 0, None)
     resid = df[y] - yhat
     return resid
 
@@ -50,6 +51,7 @@ def get_physicality_metrics(season, minimum=100):
 
     # Hustle
     base['Hustle'] = base['LOOSE_BALLS_RECOVERED'] + base['CHARGES_DRAWN'] + base['BOX_OUTS']/2
+    base = base.rename(columns={'HEIGHT' : 'PHYS_HEIGHT'})
 
     return base
 
