@@ -1,39 +1,39 @@
 {
-  "Rating": {
-    "Creation": {
-      "weight": 1.25,
-      "description": "Ability to create offense for self or teammates."
-    },
-
+  "Role": {
     "OffBall": {
-      "weight": 0.75,
+      "weight": 0.45,
       "description": "Ability to occupy defenses off the ball by shooting or screening/cutting."
     },
 
     "Defense": {
-      "weight": 1.00,
+      "weight": 0.50,
       "description": "Defensive Ability."
     },
 
     "Physicality": {
-      "weight": 0.25,
+      "weight": 0.05,
       "description": "Athletic, rebounding, rim pressure, and hustle traits."
     }
   },
 
-  "Role": {
+  "Rating": {
+    "Creation": {
+      "weight": 0.4,
+      "description": "Ability to create offense for self or teammates."
+    },
+
     "OffBall": {
-      "weight": 1.00,
+      "weight": 0.25,
       "description": "Ability to occupy defenses off the ball by shooting or screening/cutting."
     },
 
     "Defense": {
-      "weight": 1.00,
+      "weight": 0.3,
       "description": "Defensive Ability."
     },
 
     "Physicality": {
-      "weight": 0.25,
+      "weight": 0.05,
       "description": "Athletic, rebounding, rim pressure, and hustle traits."
     }
   }

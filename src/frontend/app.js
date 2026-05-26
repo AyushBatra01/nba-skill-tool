@@ -2,7 +2,7 @@ const API_BASE = "http://127.0.0.1:8000";
 
 const pillarMappings = {
     "Creation": ["Scoring", "Playmaking", "DualThreat", "Pressure"],
-    "OffBall": ["Shooting", "Spacing", "Interior", "Movement"],
+    "OffBall": ["Shooting", "Spacing", "Interior"],
     "Defense": ["Disruption", "RimProtection", "Assignment", "Versatility"],
     "Physicality": ["RimForce", "Explosiveness", "Rebounding", "Motor"]
 };

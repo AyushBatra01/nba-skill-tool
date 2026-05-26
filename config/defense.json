@@ -3,7 +3,7 @@
     "Disruption": {
       "description": "Ability to disrupt offenses through blocks, steals, and deflections.",
 
-      "weight": 0.25,
+      "weight": 0.15,
 
       "stats": {
         "Stock": {
@@ -11,7 +11,7 @@
           "description": "STL + BLK per 100 possessions."
         },
 
-        "Double": {
+        "Double_def": {
           "weight": 0.30,
           "description": "STL * BLK, awarding defenders that can disrupt in multiple ways."
         },
@@ -40,12 +40,12 @@
         },
 
         "BLK": {
-          "weight": 0.4,
+          "weight": 0.45,
           "description": "Blocks per 100 possessions."
         },
 
         "ContestedShots": {
-          "weight": 0.1,
+          "weight": 0.05,
           "description": "Contested shots per 100 possessions."
         }
       }
@@ -54,17 +54,17 @@
     "Assignment": {
       "description": "Ability to guard players one-on-one.",
 
-      "weight": 0.30,
+      "weight": 0.35,
 
       "stats": {
         "MatchupDiff": {
-          "weight": 0.6,
+          "weight": 0.7,
           "description": "Matchup difficulty, calculated by weighted average of PTS/100 of opponents guarded."
         },
 
-        "AdjPMAll": {
-          "weight": 0.4,
-          "description": "FG%+- when closest defender on shots anywhere."
+        "AdjPMOut": {
+          "weight": 0.3,
+          "description": "FG%+- when closest defender on shots not at rim."
         }
       }
     },
@@ -72,7 +72,7 @@
     "Versatility": {
       "description": "Versatility as a defensive player.",
 
-      "weight": 0.10,
+      "weight": 0.15,
 
       "stats": {
         "ClipMatchupVers": {

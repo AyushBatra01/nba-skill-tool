@@ -6,10 +6,10 @@ from src.nba_api_wrapper.tracking import tracking_raw
 from src.nba_api_wrapper.hustle import hustle
 from sklearn.linear_model import LinearRegression
 
-def residual(df, x, y):
+def residual(df, x, y, lower_bound=0.0):
     model = LinearRegression().fit(X=df[[x]], y=df[y])
     yhat = model.predict(df[[x]])
-    yhat = np.clip(yhat, 0, None)
+    yhat = np.clip(yhat, lower_bound, None)
     resid = df[y] - yhat
     return resid
 
@@ -25,6 +25,11 @@ def get_physicality_metrics(season, minimum=100):
         columns=['OREB', 'OREB_CONTEST', 'DREB', 'DREB_CONTEST']
     )
     hust = hustle(season, columns=['LOOSE_BALLS_RECOVERED', 'CHARGES_DRAWN', 'BOX_OUTS'])
+    speed = tracking_raw(
+        season,
+        pt_measure_type='SpeedDistance',
+        columns=['AVG_SPEED']
+    )
 
     # Filter
     base = base[base['MIN'] >= minimum]
@@ -35,6 +40,7 @@ def get_physicality_metrics(season, minimum=100):
     base = base.merge(misc, on='PLAYER_ID', how='left').fillna(0)
     base = base.merge(reb, on='PLAYER_ID', how='left').fillna(0)
     base = base.merge(hust, on='PLAYER_ID', how='left').fillna(0)
+    base = base.merge(speed, on='PLAYER_ID', how='left').fillna(0)
 
     # Normalize per 100
     normalize_cols = [
@@ -45,12 +51,12 @@ def get_physicality_metrics(season, minimum=100):
         base[stat] = 100 * base[stat] / base['POSS']
 
     # Adjusted BLk/REB vs height
-    base['AdjOREB'] = residual(base, x='HEIGHT', y='OREB_CONTEST')
-    base['AdjDREB'] = residual(base, x='HEIGHT', y='DREB_CONTEST')
-    base['AdjBLK'] = residual(base, x='HEIGHT', y='BLK')
+    base['AdjOREB'] = residual(base, x='HEIGHT', y='OREB_CONTEST', lower_bound=0.5)
+    base['AdjDREB'] = residual(base, x='HEIGHT', y='DREB_CONTEST', lower_bound=1.0)
+    base['AdjBLK'] = residual(base, x='HEIGHT', y='BLK', lower_bound=0.4)
 
     # Hustle
-    base['Hustle'] = base['LOOSE_BALLS_RECOVERED'] + base['CHARGES_DRAWN'] + base['BOX_OUTS']/2
+    base['Hustle'] = base['LOOSE_BALLS_RECOVERED'] + base['CHARGES_DRAWN'] + base['BOX_OUTS']/4
     base = base.rename(columns={'HEIGHT' : 'PHYS_HEIGHT'})
 
     return base

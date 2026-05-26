@@ -15,19 +15,18 @@ def get_offball_metrics(season, minimum=100):
     cut = playtype_raw(season, playtype='Cut', columns=['POSS', 'PTS'])
     roll = playtype_raw(season, playtype='PRRollman', columns=['POSS', 'PTS'])
     screen = hustle(season, columns=['SCREEN_ASSISTS'])
-    dist = tracking_raw(
+    cs = tracking_raw(
         season,
-        pt_measure_type='SpeedDistance',
-        columns=['DIST_MILES_OFF']
+        pt_measure_type='CatchShoot',
+        columns=['CATCH_SHOOT_PTS', 'CATCH_SHOOT_FGA']
     )
-
+    
     # Rename
     offscreen = offscreen.rename(columns={'POSS': 'OFFSCREEN_POSS', 'PTS': 'OFFSCREEN_PTS'})
     spotup = spotup.rename(columns={'POSS': 'SPOTUP_POSS', 'PTS': 'SPOTUP_PTS'})
     cut = cut.rename(columns={'POSS': 'CUT_POSS', 'PTS': 'CUT_PTS'})
     roll = roll.rename(columns={'POSS': 'ROLLMAN_POSS', 'PTS': 'ROLLMAN_PTS'})
     screen = screen.rename(columns={'SCREEN_ASSISTS' : 'ScreenAst'})
-    dist = dist.rename(columns={'DIST_MILES_OFF' : 'DistMilesOff'})
 
     # Filter
     base = base[base['MIN'] >= minimum]
@@ -39,14 +38,15 @@ def get_offball_metrics(season, minimum=100):
     base = base.merge(cut, on='PLAYER_ID', how='left').fillna(0)
     base = base.merge(roll, on='PLAYER_ID', how='left').fillna(0)
     base = base.merge(screen, on='PLAYER_ID', how='left').fillna(0)
-    base = base.merge(dist, on='PLAYER_ID', how='left').fillna(0)
+    base = base.merge(cs, on='PLAYER_ID', how='left').fillna(0)
 
     eps = 1e-8
 
     # Normalize per 100
     normalize_cols = [
         'FG3A', 'FG3M', 'OFFSCREEN_PTS', 'OFFSCREEN_POSS', 'SPOTUP_PTS', 'SPOTUP_POSS',
-        'CUT_PTS', 'CUT_POSS', 'ROLLMAN_PTS', 'ROLLMAN_POSS', 'ScreenAst', 'DistMilesOff'
+        'CUT_PTS', 'CUT_POSS', 'ROLLMAN_PTS', 'ROLLMAN_POSS', 'ScreenAst',
+        'CATCH_SHOOT_PTS', 'CATCH_SHOOT_FGA'
     ]
     for stat in normalize_cols:
         base[stat] = 100 * base[stat] / base['POSS']
@@ -56,9 +56,10 @@ def get_offball_metrics(season, minimum=100):
     base['mult'] = 2 * (np.exp(base['FG3A']) / (1 + np.exp(base['FG3A'])) - 0.5)
     base['TPP'] = base['3P%'] * base['mult']
     base['TPS'] = (base['3P%'] ** 2) * base['FG3A']
-    base['FTP'] = base['FTM'] / (base['FTA'] + eps)
-    base['FTP'] = np.clip(base['FTP'], 0.5, 1.0)
-    base['FT%'] = base['FTP'].copy()
+    base['FT%'] = base['FTM'] / (base['FTA'] + eps)
+    baseline_ftp = 0.75
+    baseline_fta = 30
+    base['FTP'] = (base['FTM'] + baseline_ftp * baseline_fta) / (base['FTA'] + baseline_fta)
 
     # Off Screen
     base['OFFSCREEN_PPP'] = base['OFFSCREEN_PTS'] / (base['OFFSCREEN_POSS'] + eps)
@@ -79,5 +80,9 @@ def get_offball_metrics(season, minimum=100):
     # Screen Assists
     base['3P_CUT_RATE'] = base['FG3A'] / (
                 base['FG3A'] + base['CUT_POSS'] + base['ScreenAst'] + base['ROLLMAN_POSS'] + eps)
+
+    # C&S
+    base['CS_PPP'] = base['CATCH_SHOOT_PTS'] / (base['CATCH_SHOOT_FGA'] + eps)
+    base['CatchShoot'] = base['CATCH_SHOOT_PTS'] * base['CS_PPP']
 
     return base

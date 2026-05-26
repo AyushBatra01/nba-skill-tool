@@ -47,11 +47,16 @@ def get_defense_metrics(season, minimum=100):
 
     # Box Score
     base['Stock'] = base['STL'] + base['BLK']
-    base['Double'] = base['STL'] * base['BLK']
+    base['Double_def'] = base['STL'] * base['BLK']
 
     # Tracking
-    base['AdjPMAll'] = -1 * base['PM_all'] * np.sqrt(base['D_FGA_all'])
     base['AdjPMRim'] = -1 * base['PM_rim'] * np.sqrt(base['D_FGA_rim'])
+    base['AdjPMAll'] = -1 * base['PM_all'] * np.sqrt(base['D_FGA_all'])
+
+    # Tracking - perimeter only
+    base['D_FGA_out'] = base['D_FGA_all'] - base['D_FGA_rim']
+    base['PM_out'] = (base['D_FGA_all'] * base['PM_all'] - base['D_FGA_rim'] * base['PM_rim']) / (base['D_FGA_out'] + 1e-6)
+    base['AdjPMOut'] = -1 * base['PM_out'] * np.sqrt(base['D_FGA_out'])
 
     # Clip Versatility
     base['ClipMatchupVers'] = np.clip(base['MatchupVers'], 0.9, 1.0)

@@ -39,14 +39,14 @@
           "description": "Assists per 100 possessions, adjusted for passing efficiency (AST vs TOV)."
         },
 
-        "QuickDecision": {
+        "negTOVP": {
           "weight": 0.2,
-          "description": "Decision-Making score, accounting for assists per pass made, points per touch, and seconds per touch; rewards players with high impact and low time per touch."
+          "description": "Turnover Rate."
         },
 
-        "negTOVP": {
+        "TouchEfficiency": {
           "weight": 0.1,
-          "description": "Turnover Rate."
+          "description": "Points created per touch"
         }
       }
     },
@@ -76,13 +76,8 @@
 
       "stats": {
         "RimPressure": {
-          "weight": 0.8,
+          "weight": 1.0,
           "description": "Ability to pressure rim, accounting for drives/post-ups per touch and efficiency."
-        },
-
-        "QuickDecision": {
-          "weight": 0.2,
-          "description": "Decision-making score."
         }
       }
     }

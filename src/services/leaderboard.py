@@ -7,7 +7,7 @@ bio_info = ["PLAYER_NAME", "PLAYER_ID", "SEASON", "TEAM", "TEAM_ID", "MIN"]
 
 def get_overall_leaderboard(season, minimum=500):
     df = build_full_table(season, configs, minimum)
-    cols = ["Creation", "OffBall", "Defense", "Physicality", "Rating", "Role"]
+    cols = ["Creation", "OffBall", "Defense", "Physicality", "Role", "Rating"]
     df = df[bio_info + cols]
     df = df.sort_values("Rating", ascending=False)
     return df

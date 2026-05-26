@@ -21,13 +21,13 @@
       "AST",
       "TOV",
       "TOVP",
+      "SCORE_RATE",
       "AST_RATE",
       "PTS_PER_AST",
-      "SCORE_RATE",
-      "SEC_PER_TOUCH",
+      "TouchEfficiency",
       "Pass_z",
-      "QuickDecision_z",
       "negTOVP_z",
+      "TouchEfficiency_z",
       "Playmaking"
     ],
 
@@ -45,13 +45,13 @@
 
     "Pressure": [
       "RIM",
+      "RIM_RATE",
+      "DRIVE_RATE",
+      "POST_RATE",
       "RIM_PTS",
       "RIM_AST",
-      "RIM_RATE",
       "RIM_SCORE_RATE",
       "RIM_TOV_RATE",
-      "RimPressure_z",
-      "QuickDecision_z",
       "Pressure"
     ]
   },
@@ -61,6 +61,7 @@
       "FG3A",
       "3P%",
       "FT%",
+      "FTP",
       "TPP_z",
       "TPS_z",
       "FTP_z",
@@ -74,8 +75,12 @@
       "SPOTUP_PTS",
       "SPOTUP_POSS",
       "SPOTUP_PPP",
+      "CATCH_SHOOT_PTS",
+      "CATCH_SHOOT_FGA",
+      "CS_PPP",
       "OffScreen_z",
       "SpotUp_z",
+      "CatchShoot_z",
       "Spacing"
     ],
 
@@ -91,11 +96,6 @@
       "Rollman_z",
       "ScreenAst_z",
       "Interior"
-    ],
-
-    "Movement": [
-      "DistMilesOff",
-      "Movement"
     ]
   },
 
@@ -106,7 +106,7 @@
       "Deflections",
       "DistMilesDef",
       "Stock_z",
-      "Double_z",
+      "Double_def_z",
       "Deflections_z",
       "DistMilesDef_z",
       "Disruption"
@@ -125,10 +125,10 @@
 
     "Assignment": [
       "MatchupDiff",
-      "D_FGA_all",
-      "PM_all",
+      "D_FGA_out",
+      "PM_out",
       "MatchupDiff_z",
-      "AdjPMAll_z",
+      "AdjPMOut_z",
       "Assignment"
     ],
 
@@ -182,8 +182,10 @@
       "BOX_OUTS",
       "Hustle",
       "PTS_FB",
+      "AVG_SPEED",
       "Hustle_z",
       "PTS_FB_z",
+      "AVG_SPEED_z",
       "Motor"
     ]
   }

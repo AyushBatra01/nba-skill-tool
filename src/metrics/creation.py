@@ -81,7 +81,7 @@ def get_creation_metrics(season, minimum=100):
     base['PTS_PER_AST'] = base['AST_PTS_CREATED'] / (base['AST'] + eps)
     base['SCORE_RATE'] = base['PTS'] / (base['TOUCHES'] + eps)
     base['SEC_PER_TOUCH'] = 60 * base['TIME_OF_POSS'] / (base['TOUCHES'] + eps)
-    base['QuickDecision'] = 100 * (base['AST_RATE'] * base['PTS_PER_AST'] + base['SCORE_RATE']) / (base['SEC_PER_TOUCH'] + eps)
+    base['TouchEfficiency'] = base['AST_RATE'] * base['PTS_PER_AST'] + base['SCORE_RATE']
 
     # Rim Pressure
     base['DRIVE_RATE'] = base['DRIVES'] / (base['TOUCHES'] + eps)

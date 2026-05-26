@@ -116,15 +116,6 @@
     "type": "pillar"
   },
 
-  "Movement": {
-    "display_name": "Movement",
-    "description": "Amount of movement a player provides offensively.",
-    "decimals": 2,
-    "percent": false,
-    "higher_is_better": true,
-    "type": "pillar"
-  },
-
   "Disruption": {
     "display_name": "Disruption",
     "description": "Ability to disrupt offenses through blocks, steals, and deflections.",
@@ -252,7 +243,7 @@
   },
 
   "PNR_PTS": {
-    "display_name": "PnR PTS/100",
+    "display_name": "P&R PTS/100",
     "description": "Pick & Roll Ball Handling or Handoff points scored per 100 possessions.",
     "decimals": 1,
     "percent": false,
@@ -261,7 +252,7 @@
   },
 
   "PNR_POSS": {
-    "display_name": "PnR POSS/100",
+    "display_name": "P&R POSS/100",
     "description": "Pick & Roll Ball Handling or Handoff possessions per 100 possessions.",
     "decimals": 1,
     "percent": false,
@@ -270,7 +261,7 @@
   },
 
   "PNR_PPP": {
-    "display_name": "PnR PPP",
+    "display_name": "P&R PPP",
     "description": "Points per possession on pick & roll ball handling or handoff plays.",
     "decimals": 3,
     "percent": false,
@@ -377,6 +368,15 @@
     "type": "rate"
   },
 
+  "TouchEfficiency": {
+    "display_name": "Eff.",
+    "description": "Touch Efficiency [(PTS + PTS_PER_AST * AST) / Touches].",
+    "decimals": 3,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
   "Pass_z": {
     "display_name": "Pass",
     "description": "Standardized version of Passing rating (AST * (AST / (AST + TOV))).",
@@ -386,18 +386,801 @@
     "type": "z"
   },
 
-  "QuickDecision_z": {
-    "display_name": "Quick Decision",
-    "description": "Standardized version of Decision-Making score [(Pts/Ast * AstRate + ScoreRate)/(Sec/Touch)]",
+  "negTOVP_z": {
+    "display_name": "TOV% (z)",
+    "description": "Standardized version of TOV%.",
     "decimals": 2,
     "percent": false,
     "higher_is_better": true,
     "type": "z"
   },
 
-  "negTOVP_z": {
-    "display_name": "TOV% (z)",
-    "description": "Standardized version of TOV%.",
+  "TouchEfficiency_z": {
+    "display_name": "Eff. (z)",
+    "description": "Standardized version of Touch Efficiency",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "Score": {
+    "display_name": "Scoring Rating",
+    "description": "PTS * TS%",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "Pass": {
+    "display_name": "Passing Rating",
+    "description": "AST * (AST / (AST + TOV))",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "Double_z": {
+    "display_name": "Mult. Effect",
+    "description": "Standardized Version of Double Threat Rating (Scoring rating * Passing rating)",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "Add_z": {
+    "display_name": "Add. Effect",
+    "description": "Standardized Version of Additive Threat Rating (Scoring rating + Passing rating)",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "RIM": {
+    "display_name": "Rim/100",
+    "description": "Drives + Post Ups per 100 possessions",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "RIM_PTS": {
+    "display_name": "Rim Pts/100",
+    "description": "Drive + Post Up points per 100 possessions",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "RIM_AST": {
+    "display_name": "Rim Ast/100",
+    "description": "Drives + Post Up assists per 100 possessions",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "RIM_RATE": {
+    "display_name": "Rim Rate",
+    "description": "% of touches with a drive or post up",
+    "decimals": 3,
+    "percent": true,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "RIM_SCORE_RATE": {
+    "display_name": "Rim Efficiency",
+    "description": "Points created per drive or post up attempt",
+    "decimals": 3,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "RIM_TOV_RATE": {
+    "display_name": "Rim TOV%",
+    "description": "% of drive or post up attempts ending in a turnover",
+    "decimals": 3,
+    "percent": true,
+    "higher_is_better": false,
+    "type": "rate"
+  },
+
+  "FG3A": {
+    "display_name": "3PA",
+    "description": "3-point field goal attempts per 100 possessions",
+    "decimals": 3,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "3P%": {
+    "display_name": "3P%",
+    "description": "3-point field goal percentage",
+    "decimals": 3,
+    "percent": true,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "FT%": {
+    "display_name": "FT%",
+    "description": "Free throw percentage",
+    "decimals": 3,
+    "percent": true,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "FTP": {
+    "display_name": "FT% (adj)",
+    "description": "Adjusted free throw percentage (shrunk towards 75% for players with few FTA)",
+    "decimals": 3,
+    "percent": true,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "TPP_z": {
+    "display_name": "3Pt Proficiency (z)",
+    "description": "Standardized 3pt proficiency [3P% * (2 * exp(3PA) / (1 + exp(FG3A) - 0.5)]",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "TPS_z": {
+    "display_name": "3Pt Rating",
+    "description": "Standardized 3pt rating (3PM * 3P%)",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "FTP_z": {
+    "display_name": "FT Rating",
+    "description": "Standardized free throw percentage (shrunk towards 75% for players with few attempts)",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "OFFSCREEN_PTS": {
+    "display_name": "Off Screen PTS/100",
+    "description": "Off screen points scored per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "OFFSCREEN_POSS": {
+    "display_name": "Off Screen POSS/100",
+    "description": "Off screen possessions per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "OFFSCREEN_PPP": {
+    "display_name": "Off Screen PPP",
+    "description": "Off screen points per possession.",
+    "decimals": 3,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "SPOTUP_PTS": {
+    "display_name": "Spot Up PTS/100",
+    "description": "Spot up points scored per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "SPOTUP_POSS": {
+    "display_name": "Spot Up POSS/100",
+    "description": "Spot up possessions per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "SPOTUP_PPP": {
+    "display_name": "Spot Up PPP",
+    "description": "Spot up points per possession.",
+    "decimals": 3,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "CATCH_SHOOT_PTS": {
+    "display_name": "C&S PTS/100",
+    "description": "Catch & shoot points scored per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "CATCH_SHOOT_FGA": {
+    "display_name": "C&S FGA/100",
+    "description": "Catch & shoot FGA per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "CS_PPP": {
+    "display_name": "C&S PPS",
+    "description": "Catch & shoot points per shot.",
+    "decimals": 3,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "OffScreen_z": {
+    "display_name": "Off Screen",
+    "description": "Standardized version of Off screen rating (OFFSCREEN PTS * OFFSCREEN PPP)",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "SpotUp_z": {
+    "display_name": "Spot Up",
+    "description": "Standardized version of Spot up rating (SPOTUP PTS * SPOTUP PPP)",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "CatchShoot_z": {
+    "display_name": "C&S",
+    "description": "Standardized version of Catch & shoot rating (C&S PTS * C&S PPS)",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "CUT_PTS": {
+    "display_name": "Cut PTS/100",
+    "description": "Cut points scored per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "CUT_POSS": {
+    "display_name": "Cut POSS/100",
+    "description": "Cut possessions per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "CUT_PPP": {
+    "display_name": "Cut PPP",
+    "description": "Cut points per possession.",
+    "decimals": 3,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "ROLLMAN_PTS": {
+    "display_name": "P&R Rollman PTS/100",
+    "description": "Pick & Roll Rollman points scored per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "ROLLMAN_POSS": {
+    "display_name": "P&R Rollman POSS/100",
+    "description": "Pick & Roll Rollman possessions per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "ROLLMAN_PPP": {
+    "display_name": "P&R Rollman PPP",
+    "description": "Pick & Roll Rollman points per possession.",
+    "decimals": 3,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "ScreenAst": {
+    "display_name": "ScreenAst/100",
+    "description": "Screen assists per 100 possessions",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "Cut_z": {
+    "display_name": "Cut",
+    "description": "Standardized version of cut rating (CUT PTS * CUT PPP)",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "Rollman_z": {
+    "display_name": "P&R Rollman",
+    "description": "Standardized version of P&R Rollman rating (ROLLMAN PTS * ROLLMAN PPP)",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "ScreenAst_z": {
+    "display_name": "ScreenAst (z)",
+    "description": "Standardized version of screen assists per 100",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "STL": {
+    "display_name": "STL/100",
+    "description": "Steals per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "BLK": {
+    "display_name": "BLK/100",
+    "description": "Blocks per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "Deflections": {
+    "display_name": "Defl/100",
+    "description": "Deflections per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "DistMilesDef": {
+    "display_name": "Dist",
+    "description": "Distance traveled (miles) on defense per 100 possessions.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "Stock_z": {
+    "display_name": "Stock",
+    "description": "Standardized version of stocks (steals + blocks) per 100 possessions.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "Double_def_z": {
+    "display_name": "Mult. Effect",
+    "description": "Standardized Version of Double Defensive Threat Rating (Steals * Blocks)",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "Deflections_z": {
+    "display_name": "Defl (z)",
+    "description": "Standardized version of deflections per 100 possessions.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "DistMilesDef_z": {
+    "display_name": "Dist (z)",
+    "description": "Standardized version of distance traveled on defense per 100 possessions.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "D_FGA_rim": {
+    "display_name": "Rim DFGA/100",
+    "description": "Shots defended at rim per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "PM_rim": {
+    "display_name": "Rim DFG%+-",
+    "description": "Opponent FG% over expected on shots defended at rim.",
+    "decimals": 3,
+    "percent": true,
+    "higher_is_better": false,
+    "type": "rate"
+  },
+
+  "ContestedShots": {
+    "display_name": "Contests/100",
+    "description": "Contested shots per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "AdjPMRim_z": {
+    "display_name": "Rim Save",
+    "description": "Standardized version of points saved at rim (sqrt(DFGA_rim) * Rim DFG%+-).",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "ContestedShots_z": {
+    "display_name": "Contests (z)",
+    "description": "Standardized version of contested shots.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "MatchupDiff": {
+    "display_name": "Matchup",
+    "description": "Matchup Difficulty (weighted average PTS/100 of opponents matched up against).",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "D_FGA_all": {
+    "display_name": "DFGA/100",
+    "description": "Shots defended per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "PM_all": {
+    "display_name": "DFG%+-",
+    "description": "Opponent FG% over expected on shots defended.",
+    "decimals": 3,
+    "percent": true,
+    "higher_is_better": false,
+    "type": "rate"
+  },
+
+  "D_FGA_out": {
+    "display_name": "Peri. DFGA/100",
+    "description": "Shots defended not at rim (e.g. on perimeter) per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "PM_out": {
+    "display_name": "Peri. DFG%+-",
+    "description": "Opponent FG% over expected on shots defended not at rim (e.g. on perimeter).",
+    "decimals": 3,
+    "percent": true,
+    "higher_is_better": false,
+    "type": "rate"
+  },
+
+  "MatchupDiff_z": {
+    "display_name": "Matchup (z)",
+    "description": "Standardized version of matchup difficulty.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "AdjPMAll_z": {
+    "display_name": "Pts Saved",
+    "description": "Standardized version of points saved (sqrt(DFGA) * DFG%+-).",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "AdjPMOut_z": {
+    "display_name": "Peri. Saved",
+    "description": "Standardized version of points saved on the perimeter (sqrt(Peri DFGA) * Peri DFG%+-).",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "PG": {
+    "display_name": "%PG",
+    "description": "% of possessions spent guarding Point Guards.",
+    "decimals": 2,
+    "percent": true,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "SG": {
+    "display_name": "%SG",
+    "description": "% of possessions spent guarding Shooting Guards.",
+    "decimals": 2,
+    "percent": true,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "SF": {
+    "display_name": "%SF",
+    "description": "% of possessions spent guarding Small Forwards.",
+    "decimals": 2,
+    "percent": true,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "PF": {
+    "display_name": "%PF",
+    "description": "% of possessions spent guarding Power Forwards.",
+    "decimals": 2,
+    "percent": true,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "C": {
+    "display_name": "%C",
+    "description": "% of possessions spent guarding Centers.",
+    "decimals": 2,
+    "percent": true,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "MatchupVers": {
+    "display_name": "Matchup Vers",
+    "description": "Matchup Versatility (scaled entropy of distribution of positions guarded).",
+    "decimals": 3,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "ClipMatchupVers": {
+    "display_name": "Vers (clip)",
+    "description": "Clipped Matchup Versatility (any value below 0.9 set to 0.9).",
+    "decimals": 3,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "ClipMatchupVers_z": {
+    "display_name": "Vers (z)",
+    "description": "Standardized version of clipped matchup versatility.",
+    "decimals": 3,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "PTS_PAINT": {
+    "display_name": "Paint Pts/100",
+    "description": "Points in the paint per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "PFD": {
+    "display_name": "FD/100",
+    "description": "Fouls drawn per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "PTS_FB": {
+    "display_name": "FB Pts/100",
+    "description": "Fastbreak points per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "PTS_PAINT_z": {
+    "display_name": "Paint (z)",
+    "description": "Standardized version of points in the paint.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "PFD_z": {
+    "display_name": "FD (z)",
+    "description": "Standardized version of fouls drawn.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "PTS_FB_z": {
+    "display_name": "Fastbreak (z)",
+    "description": "Standardized version of fastbreak points.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "PHYS_HEIGHT": {
+    "display_name": "Ht (in)",
+    "description": "Player height (inches).",
+    "decimals": 0,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "AdjBLK_z": {
+    "display_name": "Adj BLK",
+    "description": "Standardized version of blocks over expected (based on height).",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "OREB_CONTEST": {
+    "display_name": "Con. OREB/100",
+    "description": "Contested offensive rebounds per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "DREB_CONTEST": {
+    "display_name": "Con. DREB/100",
+    "description": "Contested defensive rebounds per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "AdjOREB_z": {
+    "display_name": "Adj OREB",
+    "description": "Standardized version of contested off. rebounds over expected (based on height).",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "AdjDREB_z": {
+    "display_name": "Adj DREB",
+    "description": "Standardized version of contested def. rebounds over expected (based on height).",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "LOOSE_BALLS_RECOVERED": {
+    "display_name": "Loose balls/100",
+    "description": "Loose balls recovered per 100 possessions.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "CHARGES_DRAWN": {
+    "display_name": "Charge/100",
+    "description": "Charges drawn per 100 possessions.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "BOX_OUTS": {
+    "display_name": "Boxouts/100",
+    "description": "Box outs per 100 possessions.",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "Hustle": {
+    "display_name": "Hustle",
+    "description": "Hustle Rating (Loose Balls + Charges + Boxouts/4).",
+    "decimals": 1,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "raw"
+  },
+
+  "AVG_SPEED": {
+    "display_name": "Speed",
+    "description": "Average speed (MPH).",
+    "decimals": 3,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "Hustle_z": {
+    "display_name": "Hustle (z)",
+    "description": "Standardized version of hustle rating.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
+  "AVG_SPEED_z": {
+    "display_name": "Speed (z)",
+    "description": "Standardized version of average speed.",
     "decimals": 2,
     "percent": false,
     "higher_is_better": true,
