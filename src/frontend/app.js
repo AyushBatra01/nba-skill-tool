@@ -262,8 +262,10 @@ function renderTable() {
         const meta = getMeta(col);
         const th = document.createElement("th");
         th.textContent = meta.display_name || col.replace(/_/g, " ");
-        th.title = meta.description || "";
-        // th.textContent = col.replace(/_/g, " ");
+        if (meta.description) {
+            th.dataset.tooltip = meta.description;
+        }
+        // th.title = meta.description || "";
         
         if (sortState.column === col) {
             th.classList.add(sortState.asc ? "sorted-asc" : "sorted-desc");
