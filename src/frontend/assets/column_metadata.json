@@ -135,7 +135,7 @@
   },
 
   "Assignment": {
-    "display_name": "Matchups",
+    "display_name": "Assignment",
     "description": "Ability to guard players one-on-one.",
     "decimals": 2,
     "percent": false,
@@ -270,7 +270,7 @@
   },
 
   "Score_z": {
-    "display_name": "Score",
+    "display_name": "Score (z)",
     "description": "Standardized version of Scoring rating (PTS * TS%)",
     "decimals": 2,
     "percent": false,
@@ -279,7 +279,7 @@
   },
 
   "Iso_z": {
-    "display_name": "Iso",
+    "display_name": "Iso (z)",
     "description": "Standardized version of Iso rating (ISO PTS * ISO PPP)",
     "decimals": 2,
     "percent": false,
@@ -288,7 +288,7 @@
   },
 
   "PnR_z": {
-    "display_name": "PnR",
+    "display_name": "PnR (z)",
     "description": "Standardized version of Pick&Roll rating (PnR PTS * PnR PPP)",
     "decimals": 2,
     "percent": false,
@@ -378,7 +378,7 @@
   },
 
   "Pass_z": {
-    "display_name": "Pass",
+    "display_name": "Pass (z)",
     "description": "Standardized version of Passing rating (AST * (AST / (AST + TOV))).",
     "decimals": 2,
     "percent": false,
@@ -423,7 +423,7 @@
   },
 
   "Double_z": {
-    "display_name": "Mult. Effect",
+    "display_name": "Double (z)",
     "description": "Standardized Version of Double Threat Rating (Scoring rating * Passing rating)",
     "decimals": 2,
     "percent": false,
@@ -432,7 +432,7 @@
   },
 
   "Add_z": {
-    "display_name": "Add. Effect",
+    "display_name": "Add (z)",
     "description": "Standardized Version of Additive Threat Rating (Scoring rating + Passing rating)",
     "decimals": 2,
     "percent": false,
@@ -476,6 +476,24 @@
     "type": "rate"
   },
 
+  "DRIVE_RATE": {
+    "display_name": "Drive Rate",
+    "description": "% of touches with a drive",
+    "decimals": 3,
+    "percent": true,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
+  "POST_RATE": {
+    "display_name": "Postup Rate",
+    "description": "% of touches with a post up",
+    "decimals": 3,
+    "percent": true,
+    "higher_is_better": true,
+    "type": "rate"
+  },
+
   "RIM_SCORE_RATE": {
     "display_name": "Rim Efficiency",
     "description": "Points created per drive or post up attempt",
@@ -497,7 +515,7 @@
   "FG3A": {
     "display_name": "3PA",
     "description": "3-point field goal attempts per 100 possessions",
-    "decimals": 3,
+    "decimals": 1,
     "percent": false,
     "higher_is_better": true,
     "type": "raw"
@@ -531,7 +549,7 @@
   },
 
   "TPP_z": {
-    "display_name": "3Pt Proficiency (z)",
+    "display_name": "3Pt Prof. (z)",
     "description": "Standardized 3pt proficiency [3P% * (2 * exp(3PA) / (1 + exp(FG3A) - 0.5)]",
     "decimals": 2,
     "percent": false,
@@ -540,7 +558,7 @@
   },
 
   "TPS_z": {
-    "display_name": "3Pt Rating",
+    "display_name": "3Pt Rating (z)",
     "description": "Standardized 3pt rating (3PM * 3P%)",
     "decimals": 2,
     "percent": false,
@@ -549,7 +567,7 @@
   },
 
   "FTP_z": {
-    "display_name": "FT Rating",
+    "display_name": "FT Rating (z)",
     "description": "Standardized free throw percentage (shrunk towards 75% for players with few attempts)",
     "decimals": 2,
     "percent": false,
@@ -558,7 +576,7 @@
   },
 
   "OFFSCREEN_PTS": {
-    "display_name": "Off Screen PTS/100",
+    "display_name": "Off Scr. PTS/100",
     "description": "Off screen points scored per 100 possessions.",
     "decimals": 1,
     "percent": false,
@@ -567,7 +585,7 @@
   },
 
   "OFFSCREEN_POSS": {
-    "display_name": "Off Screen POSS/100",
+    "display_name": "Off Scr. POSS/100",
     "description": "Off screen possessions per 100 possessions.",
     "decimals": 1,
     "percent": false,
@@ -576,7 +594,7 @@
   },
 
   "OFFSCREEN_PPP": {
-    "display_name": "Off Screen PPP",
+    "display_name": "Off Scr. PPP",
     "description": "Off screen points per possession.",
     "decimals": 3,
     "percent": false,
@@ -585,7 +603,7 @@
   },
 
   "SPOTUP_PTS": {
-    "display_name": "Spot Up PTS/100",
+    "display_name": "Spotup PTS/100",
     "description": "Spot up points scored per 100 possessions.",
     "decimals": 1,
     "percent": false,
@@ -594,7 +612,7 @@
   },
 
   "SPOTUP_POSS": {
-    "display_name": "Spot Up POSS/100",
+    "display_name": "Spotup POSS/100",
     "description": "Spot up possessions per 100 possessions.",
     "decimals": 1,
     "percent": false,
@@ -603,7 +621,7 @@
   },
 
   "SPOTUP_PPP": {
-    "display_name": "Spot Up PPP",
+    "display_name": "Spotup PPP",
     "description": "Spot up points per possession.",
     "decimals": 3,
     "percent": false,
@@ -639,7 +657,7 @@
   },
 
   "OffScreen_z": {
-    "display_name": "Off Screen",
+    "display_name": "Off Screen (z)",
     "description": "Standardized version of Off screen rating (OFFSCREEN PTS * OFFSCREEN PPP)",
     "decimals": 2,
     "percent": false,
@@ -648,7 +666,7 @@
   },
 
   "SpotUp_z": {
-    "display_name": "Spot Up",
+    "display_name": "Spot Up (z)",
     "description": "Standardized version of Spot up rating (SPOTUP PTS * SPOTUP PPP)",
     "decimals": 2,
     "percent": false,
@@ -657,7 +675,7 @@
   },
 
   "CatchShoot_z": {
-    "display_name": "C&S",
+    "display_name": "C&S (z)",
     "description": "Standardized version of Catch & shoot rating (C&S PTS * C&S PPS)",
     "decimals": 2,
     "percent": false,
@@ -693,7 +711,7 @@
   },
 
   "ROLLMAN_PTS": {
-    "display_name": "P&R Rollman PTS/100",
+    "display_name": "Roll PTS/100",
     "description": "Pick & Roll Rollman points scored per 100 possessions.",
     "decimals": 1,
     "percent": false,
@@ -702,7 +720,7 @@
   },
 
   "ROLLMAN_POSS": {
-    "display_name": "P&R Rollman POSS/100",
+    "display_name": "Roll POSS/100",
     "description": "Pick & Roll Rollman possessions per 100 possessions.",
     "decimals": 1,
     "percent": false,
@@ -711,7 +729,7 @@
   },
 
   "ROLLMAN_PPP": {
-    "display_name": "P&R Rollman PPP",
+    "display_name": "Roll PPP",
     "description": "Pick & Roll Rollman points per possession.",
     "decimals": 3,
     "percent": false,
@@ -720,7 +738,7 @@
   },
 
   "ScreenAst": {
-    "display_name": "ScreenAst/100",
+    "display_name": "Screen Ast/100",
     "description": "Screen assists per 100 possessions",
     "decimals": 1,
     "percent": false,
@@ -729,7 +747,7 @@
   },
 
   "Cut_z": {
-    "display_name": "Cut",
+    "display_name": "Cut (z)",
     "description": "Standardized version of cut rating (CUT PTS * CUT PPP)",
     "decimals": 2,
     "percent": false,
@@ -738,7 +756,7 @@
   },
 
   "Rollman_z": {
-    "display_name": "P&R Rollman",
+    "display_name": "Roll (z)",
     "description": "Standardized version of P&R Rollman rating (ROLLMAN PTS * ROLLMAN PPP)",
     "decimals": 2,
     "percent": false,
@@ -747,7 +765,7 @@
   },
 
   "ScreenAst_z": {
-    "display_name": "ScreenAst (z)",
+    "display_name": "Screen Ast (z)",
     "description": "Standardized version of screen assists per 100",
     "decimals": 2,
     "percent": false,
@@ -773,6 +791,15 @@
     "type": "raw"
   },
 
+  "BLK_z": {
+    "display_name": "BLK (z)",
+    "description": "Standardized version of blocks per 100 possessions.",
+    "decimals": 2,
+    "percent": false,
+    "higher_is_better": true,
+    "type": "z"
+  },
+
   "Deflections": {
     "display_name": "Defl/100",
     "description": "Deflections per 100 possessions.",
@@ -792,7 +819,7 @@
   },
 
   "Stock_z": {
-    "display_name": "Stock",
+    "display_name": "Stock (z)",
     "description": "Standardized version of stocks (steals + blocks) per 100 possessions.",
     "decimals": 2,
     "percent": false,
@@ -801,7 +828,7 @@
   },
 
   "Double_def_z": {
-    "display_name": "Mult. Effect",
+    "display_name": "Double (z)",
     "description": "Standardized Version of Double Defensive Threat Rating (Steals * Blocks)",
     "decimals": 2,
     "percent": false,
@@ -855,7 +882,7 @@
   },
 
   "AdjPMRim_z": {
-    "display_name": "Rim Save",
+    "display_name": "Rim Save (z)",
     "description": "Standardized version of points saved at rim (sqrt(DFGA_rim) * Rim DFG%+-).",
     "decimals": 2,
     "percent": false,
@@ -927,7 +954,7 @@
   },
 
   "AdjPMAll_z": {
-    "display_name": "Pts Saved",
+    "display_name": "Pts Saved (z)",
     "description": "Standardized version of points saved (sqrt(DFGA) * DFG%+-).",
     "decimals": 2,
     "percent": false,
@@ -936,7 +963,7 @@
   },
 
   "AdjPMOut_z": {
-    "display_name": "Peri. Saved",
+    "display_name": "Peri. Saved (z)",
     "description": "Standardized version of points saved on the perimeter (sqrt(Peri DFGA) * Peri DFG%+-).",
     "decimals": 2,
     "percent": false,
@@ -1010,10 +1037,10 @@
   "ClipMatchupVers_z": {
     "display_name": "Vers (z)",
     "description": "Standardized version of clipped matchup versatility.",
-    "decimals": 3,
+    "decimals": 2,
     "percent": false,
     "higher_is_better": true,
-    "type": "rate"
+    "type": "z"
   },
 
   "PTS_PAINT": {
@@ -1080,7 +1107,7 @@
   },
 
   "AdjBLK_z": {
-    "display_name": "Adj BLK",
+    "display_name": "Adj BLK (z)",
     "description": "Standardized version of blocks over expected (based on height).",
     "decimals": 2,
     "percent": false,
@@ -1107,7 +1134,7 @@
   },
 
   "AdjOREB_z": {
-    "display_name": "Adj OREB",
+    "display_name": "Adj OREB (z)",
     "description": "Standardized version of contested off. rebounds over expected (based on height).",
     "decimals": 2,
     "percent": false,
@@ -1116,7 +1143,7 @@
   },
 
   "AdjDREB_z": {
-    "display_name": "Adj DREB",
+    "display_name": "Adj DREB (z)",
     "description": "Standardized version of contested def. rebounds over expected (based on height).",
     "decimals": 2,
     "percent": false,
@@ -1154,7 +1181,7 @@
   "Hustle": {
     "display_name": "Hustle",
     "description": "Hustle Rating (Loose Balls + Charges + Boxouts/4).",
-    "decimals": 1,
+    "decimals": 2,
     "percent": false,
     "higher_is_better": true,
     "type": "raw"
@@ -1163,7 +1190,7 @@
   "AVG_SPEED": {
     "display_name": "Speed",
     "description": "Average speed (MPH).",
-    "decimals": 3,
+    "decimals": 2,
     "percent": false,
     "higher_is_better": true,
     "type": "rate"

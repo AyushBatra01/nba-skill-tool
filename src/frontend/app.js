@@ -12,6 +12,7 @@ const nonPctColumns = ["PLAYER_NAME", "TEAM", "MIN"];
 
 let currentData = [];
 let sortState = { column: null, asc: false };
+let columnMetadata = {};
 
 // DOM Elements
 const tableTypeSelect = document.getElementById("table-type");
@@ -30,7 +31,7 @@ const tableBody = document.getElementById("table-body");
 const leaderboardTable = document.getElementById("leaderboard-table");
 
 // Initialization
-function init() {
+async function init() {
     // Event Listeners
     tableTypeSelect.addEventListener("change", updateDropdownVisibilities);
     skillSelect.addEventListener("change", populatePillars);
@@ -40,9 +41,41 @@ function init() {
     updateBtn.addEventListener("click", fetchAndRenderData);
 
     // Initial setup
+    await loadMetadata();
+    seasonOptions();
     updateDropdownVisibilities();
     populatePillars();
-    fetchAndRenderData();
+    await fetchAndRenderData();
+}
+
+async function loadMetadata() {
+    const res = await fetch("./assets/column_metadata.json");
+    if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+    }
+    columnMetadata = await res.json();
+}
+
+function getMeta(col) {
+    return columnMetadata[col] || {};
+}
+
+function seasonOptions() {
+    const startYear = 2018;
+    const endYear = 2026;
+
+    for (let year = endYear; year >= startYear; year--) {
+        const option = document.createElement("option");
+
+        option.value = year;
+        option.textContent = `${year-1}-${String(year).slice(-2)}`;
+
+        if (year === endYear) {
+            option.selected = true;
+        }
+
+        seasonSelect.appendChild(option);
+    }
 }
 
 function updateDropdownVisibilities() {
@@ -123,6 +156,19 @@ async function fetchAndRenderData() {
     }
 }
 
+function formatValue(col, val) {
+    const meta = getMeta(col);
+    if (val === null || val === undefined) return "-";
+    if (typeof val !== "number") return String(val);
+
+    const decimals = meta.decimals ?? 0;
+    if (meta.percent) {
+        return `${(val * 100).toFixed(decimals-2)}%`;
+    }
+
+    return val.toFixed(decimals);
+}
+
 function computePercentiles() {
     if (currentData.length === 0) return;
     
@@ -133,6 +179,7 @@ function computePercentiles() {
         if (ignoredColumns.includes(col) || nonPctColumns.includes(col)) return;
         
         // Extract values and sort
+        const meta = getMeta(col)
         const values = currentData.map(row => row[col]).filter(v => v !== null && v !== undefined);
         values.sort((a, b) => a - b);
         
@@ -145,7 +192,11 @@ function computePercentiles() {
             // Find index to calculate percentile
             const idx = values.findIndex(v => v >= val);
             const pct = (idx / Math.max(1, values.length - 1)) * 100;
-            row[`${col}_pct`] = pct;
+            if (meta.higher_is_better) {
+                row[`${col}_pct`] = pct;
+            } else {
+                row[`${col}_pct`] = 100 - pct;
+            }
         });
     });
 }
@@ -179,6 +230,18 @@ function handleSort(col) {
     renderTable();
 }
 
+function getColorFromPercentile(col, pct) {
+    const meta = getMeta(col);
+
+    if (pct === null || pct === undefined) return "transparent";
+
+    let adjustedPct = pct;
+
+    const hue = (adjustedPct / 100) * 120;
+    return `hsla(${hue}, 70%, 40%, 0.6)`;
+}
+
+/*
 function getBgColorForPercentile(pct) {
     if (pct === null || pct === undefined) return "transparent";
     // Color scale: Red (0) -> Yellow (50) -> Green (100)
@@ -186,6 +249,7 @@ function getBgColorForPercentile(pct) {
     const hue = (pct / 100) * 120;
     return `hsla(${hue}, 70%, 40%, 0.6)`;
 }
+*/
 
 function renderTable() {
     if (currentData.length === 0) return;
@@ -195,8 +259,11 @@ function renderTable() {
     // Render Head
     tableHeadRow.innerHTML = "";
     columns.forEach(col => {
+        const meta = getMeta(col);
         const th = document.createElement("th");
-        th.textContent = col.replace(/_/g, " ");
+        th.textContent = meta.display_name || col.replace(/_/g, " ");
+        th.title = meta.description || "";
+        // th.textContent = col.replace(/_/g, " ");
         
         if (sortState.column === col) {
             th.classList.add(sortState.asc ? "sorted-asc" : "sorted-desc");
@@ -213,6 +280,31 @@ function renderTable() {
         const tr = document.createElement("tr");
         
         columns.forEach(col => {
+            const meta = getMeta(col);
+            const td = document.createElement("td");
+            let val = row[col];
+
+            if (val === null || val === undefined) {
+                td.textContent = "-";
+                tr.appendChild(td);
+                return;
+            }
+
+            const pct = row[`${col}_pct`];
+            const formattedVal = formatValue(col, val);
+
+            td.innerHTML = `
+                <div class="val-cell" style="background-color: ${getColorFromPercentile(col, pct)}; padding: 0.25rem 0.5rem;">
+                    <span class="val-raw">${formattedVal}</span>
+                    <span class="val-pct">${pct != null ? pct.toFixed(1) + '%' : ''}</span>
+                </div>
+            `;
+
+            tr.appendChild(td)
+
+
+
+            /*
             const td = document.createElement("td");
             let val = row[col];
             
@@ -228,7 +320,14 @@ function renderTable() {
                 // Is a percentage/value column
                 const pct = row[`${col}_pct`];
                 const formattedVal = typeof val === 'number' ? val.toFixed(2) : val;
-                
+
+                td.innerHTML = `
+                    <div class="val-cell" style="background-color: ${getColorForPercentile(col, pct)}; padding: 0.25rem 0.5rem;">
+                        <span class="val-raw">${formattedVal}</span>
+                        <span class="val-pct">${pct !== null ? pct.toFixed(1) + '%' : ''}</span>
+                    </div>
+                `;
+                /*
                 td.innerHTML = `
                     <div class="val-cell" style="background-color: ${getBgColorForPercentile(pct)}; padding: 0.25rem 0.5rem;">
                         <span class="val-raw">${formattedVal}</span>
@@ -237,6 +336,7 @@ function renderTable() {
                 `;
             }
             tr.appendChild(td);
+            */
         });
         
         tableBody.appendChild(tr);

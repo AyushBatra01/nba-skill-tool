@@ -66,17 +66,17 @@
 
       "stats": {
         "Hustle": {
-          "weight": 0.6,
+          "weight": 0.4,
           "description": "Loose balls recovered + charges drawn + 0.5 * box outs per 100 possessions."
         },
 
         "PTS_FB": {
-          "weight": 0.2,
+          "weight": 0.3,
           "description": "Fastbreak points per 100 possessions."
         },
 
         "AVG_SPEED": {
-          "weight": 0.2,
+          "weight": 0.3,
           "description": "Average Speed."
         }
       }
