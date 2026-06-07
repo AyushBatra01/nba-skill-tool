@@ -9,10 +9,15 @@ const pillarMappings = {
 
 const ignoredColumns = ["PLAYER_ID", "TEAM_ID", "SEASON"];
 const nonPctColumns = ["PLAYER_NAME", "TEAM", "MIN"];
+const filterableColumns = ["PLAYER_NAME", "TEAM"];
 
 let currentData = [];
 let sortState = { column: null, asc: false };
 let columnMetadata = {};
+let filters = {
+    PLAYER_NAME: "",
+    TEAM: ""
+};
 
 // DOM Elements
 const tableTypeSelect = document.getElementById("table-type");
@@ -27,6 +32,7 @@ const updateBtn = document.getElementById("update-btn");
 const loadingOverlay = document.getElementById("loading");
 const emptyState = document.getElementById("empty-state");
 const tableHeadRow = document.getElementById("table-head-row");
+const tableFilterRow = document.getElementById("table-filter-row");
 const tableBody = document.getElementById("table-body");
 const leaderboardTable = document.getElementById("leaderboard-table");
 
@@ -143,6 +149,7 @@ async function fetchAndRenderData() {
             }
             
             computePercentiles();
+            // getFilteredData();
             sortData();
             renderTable();
         }
@@ -251,6 +258,33 @@ function getBgColorForPercentile(pct) {
 }
 */
 
+function getFilteredData() {
+    return currentData.filter(row => {
+        if (
+            filters.PLAYER_NAME &&
+            !row.PLAYER_NAME.toLowerCase().includes(filters.PLAYER_NAME)
+        ) {
+            return false;
+        }
+
+        if (
+            filters.TEAM &&
+            !row.TEAM.toLowerCase().includes(filters.TEAM)
+        ) {
+            return false;
+        }
+
+        return true;
+    });
+}
+
+
+function renderTable() {
+    renderHeaders();
+    renderBody();
+}
+
+/*
 function renderTable() {
     if (currentData.length === 0) return;
 
@@ -276,9 +310,28 @@ function renderTable() {
         tableHeadRow.appendChild(th);
     });
 
+    // Render Filters
+    tableFilterRow.innerHTML = "";
+    columns.forEach(col => {
+        const th = document.createElement("th");
+        if (filterableColumns.includes(col)) {
+            const input = document.createElement("input");
+            input.type = "text";
+            input.placeholder = "Search...";
+            input.value = filters[col];
+            input.addEventListener("input", (e) => {
+                filters[col] = e.target.value.toLowerCase();
+                renderTable();
+            });
+            th.appendChild(input);
+        }
+        tableFilterRow.appendChild(th);
+    });
+
     // Render Body
+    const rows = getFilteredData();
     tableBody.innerHTML = "";
-    currentData.forEach(row => {
+    rows.forEach(row => {
         const tr = document.createElement("tr");
         
         columns.forEach(col => {
@@ -306,41 +359,123 @@ function renderTable() {
 
 
 
-            /*
+
+//            const td = document.createElement("td");
+//            let val = row[col];
+//
+//            if (val === null || val === undefined) {
+//                td.textContent = "-";
+//                tr.appendChild(td);
+//                return;
+//            }
+//
+//            if (nonPctColumns.includes(col)) {
+//                td.textContent = typeof val === 'number' ? val.toLocaleString(undefined, {maximumFractionDigits: 1}) : val;
+//            } else {
+//                // Is a percentage/value column
+//                const pct = row[`${col}_pct`];
+//                const formattedVal = typeof val === 'number' ? val.toFixed(2) : val;
+//
+//                td.innerHTML = `
+//                    <div class="val-cell" style="background-color: ${getColorForPercentile(col, pct)}; padding: 0.25rem 0.5rem;">
+//                        <span class="val-raw">${formattedVal}</span>
+//                        <span class="val-pct">${pct !== null ? pct.toFixed(1) + '%' : ''}</span>
+//                    </div>
+//                `;
+//                /*
+//                td.innerHTML = `
+//                    <div class="val-cell" style="background-color: ${getBgColorForPercentile(pct)}; padding: 0.25rem 0.5rem;">
+//                        <span class="val-raw">${formattedVal}</span>
+//                        <span class="val-pct">${pct !== null ? pct.toFixed(1) + '%' : ''}</span>
+//                    </div>
+//                `;
+//            }
+//            tr.appendChild(td);
+//
+//        });
+        
+        tableBody.appendChild(tr);
+    });
+}
+*/
+
+function renderHeaders() {
+    if (currentData.length === 0) return;
+
+    const columns = Object.keys(currentData[0]).filter(c => !ignoredColumns.includes(c) && !c.endsWith("_pct"));
+
+    // Render Head
+    tableHeadRow.innerHTML = "";
+    columns.forEach(col => {
+        const meta = getMeta(col);
+        const th = document.createElement("th");
+        th.textContent = meta.display_name || col.replace(/_/g, " ");
+        if (meta.description) {
+            th.dataset.tooltip = meta.description;
+        }
+        // th.title = meta.description || "";
+
+        if (sortState.column === col) {
+            th.classList.add(sortState.asc ? "sorted-asc" : "sorted-desc");
+            th.innerHTML += `<span class="sort-icon">${sortState.asc ? "▲" : "▼"}</span>`;
+        }
+
+        th.addEventListener("click", () => handleSort(col));
+        tableHeadRow.appendChild(th);
+    });
+
+    // Render Filters
+    tableFilterRow.innerHTML = "";
+    columns.forEach(col => {
+        const th = document.createElement("th");
+        if (filterableColumns.includes(col)) {
+            const input = document.createElement("input");
+            input.type = "text";
+            input.placeholder = "Search...";
+            input.value = filters[col];
+            input.addEventListener("input", (e) => {
+                filters[col] = e.target.value.toLowerCase();
+                renderBody();
+            });
+            th.appendChild(input);
+        }
+        tableFilterRow.appendChild(th);
+    });
+}
+
+function renderBody() {
+    if (currentData.length === 0) return;
+    // Render Body
+    const columns = Object.keys(currentData[0]).filter(c => !ignoredColumns.includes(c) && !c.endsWith("_pct"));
+    const rows = getFilteredData();
+    tableBody.innerHTML = "";
+    rows.forEach(row => {
+        const tr = document.createElement("tr");
+
+        columns.forEach(col => {
+            const meta = getMeta(col);
             const td = document.createElement("td");
             let val = row[col];
-            
+
             if (val === null || val === undefined) {
                 td.textContent = "-";
                 tr.appendChild(td);
                 return;
             }
 
-            if (nonPctColumns.includes(col)) {
-                td.textContent = typeof val === 'number' ? val.toLocaleString(undefined, {maximumFractionDigits: 1}) : val;
-            } else {
-                // Is a percentage/value column
-                const pct = row[`${col}_pct`];
-                const formattedVal = typeof val === 'number' ? val.toFixed(2) : val;
+            const pct = row[`${col}_pct`];
+            const formattedVal = formatValue(col, val);
 
-                td.innerHTML = `
-                    <div class="val-cell" style="background-color: ${getColorForPercentile(col, pct)}; padding: 0.25rem 0.5rem;">
-                        <span class="val-raw">${formattedVal}</span>
-                        <span class="val-pct">${pct !== null ? pct.toFixed(1) + '%' : ''}</span>
-                    </div>
-                `;
-                /*
-                td.innerHTML = `
-                    <div class="val-cell" style="background-color: ${getBgColorForPercentile(pct)}; padding: 0.25rem 0.5rem;">
-                        <span class="val-raw">${formattedVal}</span>
-                        <span class="val-pct">${pct !== null ? pct.toFixed(1) + '%' : ''}</span>
-                    </div>
-                `;
-            }
-            tr.appendChild(td);
-            */
+            td.innerHTML = `
+                <div class="val-cell" style="background-color: ${getColorFromPercentile(col, pct)}; padding: 0.25rem 0.5rem;">
+                    <span class="val-raw">${formattedVal}</span>
+                    <span class="val-pct">${pct != null ? pct.toFixed(1) + '%' : ''}</span>
+                </div>
+            `;
+
+            tr.appendChild(td)
         });
-        
+
         tableBody.appendChild(tr);
     });
 }

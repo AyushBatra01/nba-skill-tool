@@ -74,6 +74,12 @@
                 <div class="slider-container">
                     <input type="range" id="min-minutes" min="200" max="1500" step="50" value="500">
                 </div>
+                <div class="slider-ticks">
+                    <span style="left:0%">200</span>
+                    <span style="left:23.1%">500</span>
+                    <span style="left:61.5%">1000</span>
+                    <span style="left:100%">1500</span>
+                </div>
             </div>
 
             <div class="control-group button-group">
@@ -89,6 +95,9 @@
                 <table id="leaderboard-table">
                     <thead>
                         <tr id="table-head-row">
+                            <!-- Populated dynamically via JS -->
+                        </tr>
+                        <tr id="table-filter-row">
                             <!-- Populated dynamically via JS -->
                         </tr>
                     </thead>

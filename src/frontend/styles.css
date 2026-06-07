@@ -126,6 +126,31 @@ body {
     height: 44px; /* Match select height */
 }
 
+.slider-wrapper {
+    position: relative;
+}
+
+.slider-ticks {
+    position: relative;
+    height: 20px;
+    margin-top: 4px;
+}
+
+.slider-ticks span {
+    position: absolute;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.slider-ticks span:first-child {
+    transform: translateX(0);
+}
+
+.slider-ticks span:last-child {
+    transform: translateX(-100%);
+}
+
 input[type="range"] {
     -webkit-appearance: none;
     width: 100%;
@@ -305,6 +330,49 @@ th.sorted-asc .sort-icon,
 th.sorted-desc .sort-icon {
     opacity: 1;
     color: var(--accent);
+}
+
+/* Filter row */
+#table-filter-row th {
+    background-color: var(--table-header-bg);
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    cursor: default;
+}
+
+/* Filter inputs */
+#table-filter-row input {
+    width: 100%;
+
+    padding: 0.45rem 0.65rem;
+
+    background-color: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
+
+    color: var(--text-primary);
+    font-size: 0.85rem;
+
+    outline: none;
+    transition: all 0.15s ease;
+}
+
+/* Placeholder text */
+#table-filter-row input::placeholder {
+    color: var(--text-secondary);
+}
+
+/* Focus state */
+#table-filter-row input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(100, 150, 255, 0.15);
+    background-color: rgba(255,255,255,0.08);
+}
+
+#table-filter-row th {
+    position: sticky;
+    top: 52px; /* adjust to actual header height */
+    z-index: 9;
 }
 
 tbody tr {
