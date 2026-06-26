@@ -8,7 +8,7 @@ const pillarMappings = {
 };
 
 const ignoredColumns = ["PLAYER_ID", "TEAM_ID", "SEASON"];
-const nonPctColumns = ["PLAYER_NAME", "TEAM", "MIN"];
+const nonPctColumns = ["PLAYER_NAME", "TEAM", "AGE", "MIN"];
 const filterableColumns = ["PLAYER_NAME", "TEAM"];
 
 let currentData = [];

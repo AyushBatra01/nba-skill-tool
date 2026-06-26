@@ -248,7 +248,7 @@ th {
     position: sticky;
 }
 
-th::after {
+th[data-tooltip]::after {
     content: attr(data-tooltip);
 
     position: absolute;
@@ -282,7 +282,7 @@ th::after {
     box-shadow: 0 6px 18px rgba(0,0,0,0.25);
 }
 
-th::before {
+th[data-tooltip]::before {
     content: "";
 
     position: absolute;
@@ -303,8 +303,8 @@ th::before {
     pointer-events: none;
 }
 
-th:hover::after,
-th:hover::before {
+th[data-tooltip]:hover::after,
+th[data-tooltip]:hover::before {
     opacity: 1;
     visibility: visible;
 }
