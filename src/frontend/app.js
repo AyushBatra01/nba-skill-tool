@@ -60,6 +60,7 @@ async function loadMetadata() {
         throw new Error(`HTTP ${res.status}`);
     }
     columnMetadata = await res.json();
+    console.log(Object.keys(columnMetadata));
 }
 
 function getMeta(col) {

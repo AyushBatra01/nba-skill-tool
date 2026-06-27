@@ -530,9 +530,9 @@
     "type": "rate"
   },
 
-  "FT%": {
+  "FTP_raw": {
     "display_name": "FT%",
-    "description": "Free throw percentage",
+    "description": "Free throw percentage (raw)",
     "decimals": 3,
     "percent": true,
     "higher_is_better": true,
