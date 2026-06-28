@@ -10,7 +10,7 @@ def build_skill_table(season, config, skill, minimum=500, add_bio=True):
     skill_df = create_skill_score(df, config, skill, minimum)
     skill_df = skill_df.drop(columns=['MIN', 'POSS'])
     if add_bio:
-        final_df = bio_df.merge(skill_df, on=['PLAYER_ID', 'SEASON'], how='inner')
+        final_df = bio_df.merge(skill_df, on=['PLAYER_ID', 'SEASON'], how='inner', suffixes=('', '_x'))
     else:
         final_df = skill_df
     final_df = final_df.replace({float('nan'): None})
@@ -23,7 +23,7 @@ def build_full_table(season, configs, minimum=500):
         dfs[skill] = tbl
     final_df = dfs['Bio']
     for skill in ["Creation", "OffBall", "Defense", "Physicality"]:
-        final_df = final_df.merge(dfs[skill], on=['PLAYER_ID', 'SEASON'])
+        final_df = final_df.merge(dfs[skill], on=['PLAYER_ID', 'SEASON'], suffixes=('', '_1'))
     final_df = create_overall_score(final_df, configs["combined"])
     final_df = final_df.replace({float('nan'): None})
     return final_df

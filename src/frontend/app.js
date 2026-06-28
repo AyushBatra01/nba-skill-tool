@@ -8,7 +8,7 @@ const pillarMappings = {
 };
 
 const ignoredColumns = ["PLAYER_ID", "TEAM_ID", "SEASON"];
-const nonPctColumns = ["PLAYER_NAME", "TEAM", "AGE", "MIN"];
+const nonPctColumns = ["PLAYER_NAME", "TEAM", "AGE", "MIN", "HEIGHT", "WEIGHT", "COLLEGE", "COUNTRY", "DRAFT_YEAR", "DRAFT_NUMBER"];
 const filterableColumns = ["PLAYER_NAME", "TEAM"];
 
 let currentData = [];
@@ -28,6 +28,8 @@ const pillarSelect = document.getElementById("pillar-select");
 const seasonSelect = document.getElementById("season-select");
 const minMinutesSlider = document.getElementById("min-minutes");
 const minMinutesVal = document.getElementById("min-minutes-val");
+const extraInfoToggle = document.getElementById("extra-info-toggle");
+const extraInfoLabel = document.getElementById("extra-info-label");
 const updateBtn = document.getElementById("update-btn");
 const loadingOverlay = document.getElementById("loading");
 const emptyState = document.getElementById("empty-state");
@@ -43,6 +45,10 @@ async function init() {
     skillSelect.addEventListener("change", populatePillars);
     minMinutesSlider.addEventListener("input", (e) => {
         minMinutesVal.textContent = e.target.value;
+    });
+    extraInfoToggle.addEventListener("change", () => {
+        extraInfoLabel.textContent =
+            extraInfoToggle.checked ? "On" : "Off";
     });
     updateBtn.addEventListener("click", fetchAndRenderData);
 
@@ -121,14 +127,15 @@ async function fetchAndRenderData() {
     const min = minMinutesSlider.value;
     const skill = skillSelect.value;
     const pillar = pillarSelect.value;
+    const extraInfo = extraInfoToggle.checked;
 
     let url = "";
     if (type === "overall") {
-        url = `${API_BASE}/leaderboard/overall?season=${season}&minimum=${min}`;
+        url = `${API_BASE}/leaderboard/overall?season=${season}&minimum=${min}&detailed=${extraInfo}`;
     } else if (type === "skill") {
-        url = `${API_BASE}/leaderboard/skill/${skill}?season=${season}&minimum=${min}`;
+        url = `${API_BASE}/leaderboard/skill/${skill}?season=${season}&minimum=${min}&detailed=${extraInfo}`;
     } else if (type === "pillar") {
-        url = `${API_BASE}/leaderboard/pillar/${skill}/${pillar}?season=${season}&minimum=${min}`;
+        url = `${API_BASE}/leaderboard/pillar/${skill}/${pillar}?season=${season}&minimum=${min}&detailed=${extraInfo}`;
     }
 
     try {
@@ -172,6 +179,12 @@ function formatValue(col, val) {
     const decimals = meta.decimals ?? 0;
     if (meta.percent) {
         return `${(val * 100).toFixed(decimals-2)}%`;
+    }
+
+    if (col == "HEIGHT") {
+        const feet = Math.floor(val / 12);
+        const inches = val % 12;
+        return `${feet}'${inches}"`
     }
 
     return val.toFixed(decimals);
@@ -232,7 +245,11 @@ function handleSort(col) {
         sortState.asc = !sortState.asc;
     } else {
         sortState.column = col;
-        sortState.asc = false;
+        if (nonPctColumns.includes(sortState.column)) {
+            sortState.asc = true;
+        } else {
+            sortState.asc = false;
+        }
     }
     sortData();
     renderTable();
