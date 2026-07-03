@@ -16,3 +16,5 @@ for skill in ["combined", "creation", "offball", "defense", "physicality"]:
     configs[skill] = load_config(skill)
 
 pillar_views = load_config("pillar_views")
+
+column_metadata = load_config("column_metadata")

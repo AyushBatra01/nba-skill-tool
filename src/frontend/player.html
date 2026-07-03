@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--
     <title>NBA Skills Leaderboard</title>
     <meta name="description" content="An interactive leaderboard displaying NBA player skills and performance percentiles.">
+    -->
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,10 +16,49 @@
 <body>
     <header class="app-header">
         <div class="header-content">
-            <h1>NBA Skills Leaderboard</h1>
-            <p>Explore comprehensive player evaluations and percentiles across multiple skills and pillars.</p>
+            <a href="index.html" class="back-link">← Leaderboard</a>
+            <h1 id="player-name">Loading...</h1>
+            <p id="player-subtitle">
+                Loading player information...
+            </p>
         </div>
     </header>
+
+    <section class="player-card glass-panel">
+        <!--
+        <div class="player-photo">
+            <img id="player-headshot"
+                 src="assets/default-player.png"
+                 alt="Player Headshot">
+        </div>
+        -->
+        <div class="player-info-grid">
+            <div class="info-item">
+                <span class="info-label">Height</span>
+                <span id="player-height">6'8"</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Weight</span>
+                <span id="player-weight">250 lb</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Age</span>
+                <span id="player-age">40</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Experience</span>
+                <span id="player-exp">22 Seasons</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Draft</span>
+                <span id="player-draft">2003 • #1 Overall</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Current Team</span>
+                <span id="player-team">Lakers</span>
+            </div>
+        </div>
+    </section>
 
     <main class="app-main">
         <section class="controls glass-panel">
@@ -47,50 +88,16 @@
                 </select>
             </div>
 
-            <div class="control-group">
-                <label for="season-select">Season</label>
-                <select id="season-select"></select>
-            </div>
-
-            <!--
-            <div class="control-group">
-                <label for="season-select">Season</label>
-                <select id="season-select">
-                    <option value="2026" selected>2025-26</option>
-                    <option value="2025">2024-25</option>
-                    <option value="2024">2023-24</option>
-                    <option value="2023">2022-23</option>
-                    <option value="2022">2021-22</option>
-                    <option value="2021">2020-21</option>
-                    <option value="2020">2019-20</option>
-                    <option value="2019">2018-19</option>
-                    <option value="2018">2017-18</option>
-                </select>
-            </div>
-            -->
-
             <div class="control-group slider-group">
                 <label for="min-minutes">Min Minutes: <span id="min-minutes-val">500</span></label>
                 <div class="slider-container">
-                    <input type="range" id="min-minutes" min="200" max="1500" step="50" value="500">
+                    <input type="range" id="min-minutes" min="100" max="1000" step="50" value="500">
                 </div>
                 <div class="slider-ticks">
-                    <span style="left:0%">200</span>
-                    <span style="left:23.1%">500</span>
-                    <span style="left:61.5%">1000</span>
-                    <span style="left:100%">1500</span>
+                    <span style="left:0%">100</span>
+                    <span style="left:44.4%">500</span>
+                    <span style="left:100%">1000</span>
                 </div>
-            </div>
-
-            <div class="control-group toggle-group">
-                <label for="extra-info-toggle">Player Details</label>
-
-                <label class="switch">
-                    <input type="checkbox" id="extra-info-toggle">
-                    <span class="slider"></span>
-                </label>
-
-                <span id="extra-info-label">Off</span>
             </div>
 
             <div class="control-group button-group">
@@ -123,7 +130,8 @@
         </section>
     </main>
 
-    <script src="js/common.js"></script>
-    <script src="js/leaderboard.js"></script>
+    <!--
+    <script src="js/player.js"></script>
+    -->
 </body>
 </html>

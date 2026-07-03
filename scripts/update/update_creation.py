@@ -1,10 +1,8 @@
 import pandas as pd
 
+from src.utils.general import SEASON_START, SEASON_END
 from src.db.save import save_table
 from src.metrics.creation import get_creation_metrics
-
-SEASON_START = 2018
-SEASON_END = 2026
 
 all_dfs = []
 

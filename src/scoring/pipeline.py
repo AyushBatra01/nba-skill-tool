@@ -1,6 +1,8 @@
 import pandas as pd
+import numpy as np
 
 from src.db.load import load_table
+from src.config.load_config import column_metadata
 from src.scoring.scoring import create_skill_score, create_overall_score
 
 def build_skill_table(season, config, skill, minimum=500, add_bio=True):
@@ -27,3 +29,12 @@ def build_full_table(season, configs, minimum=500):
     final_df = create_overall_score(final_df, configs["combined"])
     final_df = final_df.replace({float('nan'): None})
     return final_df
+
+def add_percentiles(table, columns):
+    og_cols = set(table.columns.tolist())
+    for col in columns:
+        pct_name = f"{col}_pct"
+        assert pct_name not in og_cols, "Duplicate name error"
+        asc = column_metadata[col]["higher_is_better"]
+        table[pct_name] = np.round(100 * table[col].rank(pct=True, ascending=asc), 1)
+    return table

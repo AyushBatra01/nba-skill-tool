@@ -1,16 +1,3 @@
-const API_BASE = "http://127.0.0.1:8000";
-
-const pillarMappings = {
-    "Creation": ["Scoring", "Playmaking", "DualThreat", "Pressure"],
-    "OffBall": ["Shooting", "Spacing", "Interior"],
-    "Defense": ["Disruption", "RimProtection", "Assignment", "Versatility"],
-    "Physicality": ["RimForce", "Explosiveness", "Rebounding", "Motor"]
-};
-
-const ignoredColumns = ["PLAYER_ID", "TEAM_ID", "SEASON"];
-const nonPctColumns = ["PLAYER_NAME", "TEAM", "AGE", "MIN", "HEIGHT", "WEIGHT", "COLLEGE", "COUNTRY", "DRAFT_YEAR", "DRAFT_NUMBER"];
-const filterableColumns = ["PLAYER_NAME", "TEAM"];
-
 let currentData = [];
 let sortState = { column: null, asc: false };
 let columnMetadata = {};
@@ -302,120 +289,6 @@ function renderTable() {
     renderBody();
 }
 
-/*
-function renderTable() {
-    if (currentData.length === 0) return;
-
-    const columns = Object.keys(currentData[0]).filter(c => !ignoredColumns.includes(c) && !c.endsWith("_pct"));
-    
-    // Render Head
-    tableHeadRow.innerHTML = "";
-    columns.forEach(col => {
-        const meta = getMeta(col);
-        const th = document.createElement("th");
-        th.textContent = meta.display_name || col.replace(/_/g, " ");
-        if (meta.description) {
-            th.dataset.tooltip = meta.description;
-        }
-        // th.title = meta.description || "";
-        
-        if (sortState.column === col) {
-            th.classList.add(sortState.asc ? "sorted-asc" : "sorted-desc");
-            th.innerHTML += `<span class="sort-icon">${sortState.asc ? "▲" : "▼"}</span>`;
-        }
-        
-        th.addEventListener("click", () => handleSort(col));
-        tableHeadRow.appendChild(th);
-    });
-
-    // Render Filters
-    tableFilterRow.innerHTML = "";
-    columns.forEach(col => {
-        const th = document.createElement("th");
-        if (filterableColumns.includes(col)) {
-            const input = document.createElement("input");
-            input.type = "text";
-            input.placeholder = "Search...";
-            input.value = filters[col];
-            input.addEventListener("input", (e) => {
-                filters[col] = e.target.value.toLowerCase();
-                renderTable();
-            });
-            th.appendChild(input);
-        }
-        tableFilterRow.appendChild(th);
-    });
-
-    // Render Body
-    const rows = getFilteredData();
-    tableBody.innerHTML = "";
-    rows.forEach(row => {
-        const tr = document.createElement("tr");
-        
-        columns.forEach(col => {
-            const meta = getMeta(col);
-            const td = document.createElement("td");
-            let val = row[col];
-
-            if (val === null || val === undefined) {
-                td.textContent = "-";
-                tr.appendChild(td);
-                return;
-            }
-
-            const pct = row[`${col}_pct`];
-            const formattedVal = formatValue(col, val);
-
-            td.innerHTML = `
-                <div class="val-cell" style="background-color: ${getColorFromPercentile(col, pct)}; padding: 0.25rem 0.5rem;">
-                    <span class="val-raw">${formattedVal}</span>
-                    <span class="val-pct">${pct != null ? pct.toFixed(1) + '%' : ''}</span>
-                </div>
-            `;
-
-            tr.appendChild(td)
-
-
-
-
-//            const td = document.createElement("td");
-//            let val = row[col];
-//
-//            if (val === null || val === undefined) {
-//                td.textContent = "-";
-//                tr.appendChild(td);
-//                return;
-//            }
-//
-//            if (nonPctColumns.includes(col)) {
-//                td.textContent = typeof val === 'number' ? val.toLocaleString(undefined, {maximumFractionDigits: 1}) : val;
-//            } else {
-//                // Is a percentage/value column
-//                const pct = row[`${col}_pct`];
-//                const formattedVal = typeof val === 'number' ? val.toFixed(2) : val;
-//
-//                td.innerHTML = `
-//                    <div class="val-cell" style="background-color: ${getColorForPercentile(col, pct)}; padding: 0.25rem 0.5rem;">
-//                        <span class="val-raw">${formattedVal}</span>
-//                        <span class="val-pct">${pct !== null ? pct.toFixed(1) + '%' : ''}</span>
-//                    </div>
-//                `;
-//                /*
-//                td.innerHTML = `
-//                    <div class="val-cell" style="background-color: ${getBgColorForPercentile(pct)}; padding: 0.25rem 0.5rem;">
-//                        <span class="val-raw">${formattedVal}</span>
-//                        <span class="val-pct">${pct !== null ? pct.toFixed(1) + '%' : ''}</span>
-//                    </div>
-//                `;
-//            }
-//            tr.appendChild(td);
-//
-//        });
-        
-        tableBody.appendChild(tr);
-    });
-}
-*/
 
 function renderHeaders() {
     if (currentData.length === 0) return;
@@ -473,6 +346,17 @@ function renderBody() {
         columns.forEach(col => {
             const meta = getMeta(col);
             const td = document.createElement("td");
+
+            if (col == "PLAYER_NAME") {
+                td.innerHTML = `
+                    <a class="player-link" href="player.html?player_id=${row.PLAYER_ID}">
+                        ${row.PLAYER_NAME}
+                    </a>
+                `;
+                tr.appendChild(td);
+                return;
+            }
+
             let val = row[col];
 
             if (val === null || val === undefined) {

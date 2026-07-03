@@ -1,5 +1,8 @@
 import numpy as np
 
+SEASON_START = 2018
+SEASON_END = 2026
+
 headers = {
     "Host": "stats.nba.com",
     "Connection": "keep-alive",
