@@ -1,6 +1,6 @@
 import pandas as pd
 
-from src.scoring.pipeline import build_skill_table, build_full_table
+from src.scoring.pipeline import build_skill_table, build_full_table, add_percentiles
 from src.config.load_config import configs, pillar_views
 
 bio_info = ["PLAYER_NAME", "PLAYER_ID", "SEASON", "TEAM", "TEAM_ID", "AGE", "MIN"]
@@ -14,6 +14,7 @@ def get_overall_leaderboard(season, minimum=500, detailed=False):
     else:
         df = df[bio_info + cols]
     df = df.sort_values("Rating", ascending=False)
+    df = add_percentiles(df, cols)
     return df
 
 def get_skill_leaderboard(season, skill, minimum=500, detailed=False):
@@ -27,6 +28,7 @@ def get_skill_leaderboard(season, skill, minimum=500, detailed=False):
     else:
         df = df[bio_info + cols]
     df = df.sort_values(skill, ascending=False)
+    df = add_percentiles(df, cols)
     return df
 
 def get_pillar_leaderboard(season, skill, pillar, minimum=500, detailed=False):
@@ -38,4 +40,5 @@ def get_pillar_leaderboard(season, skill, pillar, minimum=500, detailed=False):
     else:
         df = df[bio_info + cols]
     df = df.sort_values(pillar, ascending=False)
+    df = add_percentiles(df, cols)
     return df
