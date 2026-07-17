@@ -3,7 +3,7 @@ import pandas as pd
 from src.scoring.pipeline import build_skill_table, build_full_table, add_percentiles
 from src.config.load_config import configs, pillar_views
 
-bio_info = ["PLAYER_NAME", "PLAYER_ID", "SEASON", "TEAM", "TEAM_ID", "AGE", "MIN"]
+bio_info = ["PLAYER_NAME", "PLAYER_ID", "TEAM", "TEAM_ID", "AGE", "MIN"]
 add_info = ["HEIGHT", "WEIGHT", "COLLEGE", "COUNTRY", "DRAFT_YEAR", "DRAFT_NUMBER"]
 
 def get_overall_leaderboard(season, minimum=500, detailed=False):

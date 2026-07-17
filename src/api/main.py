@@ -15,7 +15,7 @@ app.add_middleware(
 )
 
 app.include_router(leaderboard_router)
-# app.include_router(player_router)
+app.include_router(player_router)
 
 # run from project root:
 # uvicorn src.api.main:app --port 8000 --reload

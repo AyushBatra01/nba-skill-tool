@@ -7,9 +7,9 @@ const pillarMappings = {
     "Physicality": ["RimForce", "Explosiveness", "Rebounding", "Motor"]
 };
 
-const ignoredColumns = ["PLAYER_ID", "TEAM_ID", "SEASON"];
-const nonPctColumns = ["PLAYER_NAME", "TEAM", "AGE", "MIN", "HEIGHT", "WEIGHT", "COLLEGE", "COUNTRY", "DRAFT_YEAR", "DRAFT_NUMBER"];
-const filterableColumns = ["PLAYER_NAME", "TEAM"];
+const ignoredColumns = ["PLAYER_ID", "TEAM_ID"];
+const nonPctColumns = ["PLAYER_NAME", "TEAM", "SEASON", "AGE", "MIN", "HEIGHT", "WEIGHT", "COLLEGE", "COUNTRY", "DRAFT_YEAR", "DRAFT_NUMBER"];
+const filterableColumns = ["PLAYER_NAME", "TEAM", "SEASON"];
 
 async function loadMetadata() {
     const res = await fetch("./assets/column_metadata.json");
