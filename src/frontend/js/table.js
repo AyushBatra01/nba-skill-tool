@@ -143,6 +143,16 @@ function renderBody({ tableBody }) {
                 return;
             }
 
+            if (col == "TEAM") {
+                td.innerHTML = `
+                    <a class="player-link" href="team.html?team_id=${row.TEAM_ID}">
+                        ${row.TEAM}
+                    </a>
+                `;
+                tr.appendChild(td);
+                return;
+            }
+
             const val = row[col];
             if (val == null) {
                 td.textContent = "-";

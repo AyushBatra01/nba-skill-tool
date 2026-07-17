@@ -48,3 +48,23 @@ async function fetchPlayerStats(params) {
 
     return await res.json();
 }
+
+
+async function fetchTeamStats(params) {
+    const { teamId, type, season, min, skill, pillar, detailed } = params;
+
+    let url = "";
+
+    if (type === "overall") {
+        url = `${API_BASE}/team/${teamId}/overall?season=${season}&minimum=${min}&detailed=${detailed}`;
+    } else if (type === "skill") {
+        url = `${API_BASE}/team/${teamId}/skill/${skill}?season=${season}&minimum=${min}&detailed=${detailed}`;
+    } else {
+        url = `${API_BASE}/team/${teamId}/pillar/${skill}/${pillar}?season=${season}&minimum=${min}&detailed=${detailed}`;
+    }
+
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("API error");
+
+    return await res.json();
+}

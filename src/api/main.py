@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from src.api.routes.leaderboard import router as leaderboard_router
 from src.api.routes.player import router as player_router
+from src.api.routes.team import router as team_router
 
 app = FastAPI()
 
@@ -16,6 +17,7 @@ app.add_middleware(
 
 app.include_router(leaderboard_router)
 app.include_router(player_router)
+app.include_router(team_router)
 
 # run from project root:
 # uvicorn src.api.main:app --port 8000 --reload

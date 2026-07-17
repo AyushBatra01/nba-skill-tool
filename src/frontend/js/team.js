@@ -2,34 +2,28 @@ let currentData = [];
 
 const params = new URLSearchParams(window.location.search);
 
-// Get player ID
-const playerId = Number(params.get("player_id"));
+// Get team ID
+const teamId = Number(params.get("team_id"));
 
 // DOM Elements
-const playerName = document.getElementById("player-name");
-const playerHeight = document.getElementById("player-height");
-const playerWeight = document.getElementById("player-weight");
-const playerAge = document.getElementById("player-age");
-const playerExp = document.getElementById("player-exp");
-const playerDraft = document.getElementById("player-draft");
-const playerTeam = document.getElementById("player-team");
-
+const teamName = document.getElementById("team-name");
 const tableTypeSelect = document.getElementById("table-type");
 const skillGroup = document.getElementById("skill-group");
 const skillSelect = document.getElementById("skill-select");
 const pillarGroup = document.getElementById("pillar-group");
 const pillarSelect = document.getElementById("pillar-select");
+const seasonSelect = document.getElementById("season-select");
 const minMinutesSlider = document.getElementById("min-minutes");
 const minMinutesVal = document.getElementById("min-minutes-val");
+const extraInfoToggle = document.getElementById("extra-info-toggle");
+const extraInfoLabel = document.getElementById("extra-info-label");
 const updateBtn = document.getElementById("update-btn");
 const loadingOverlay = document.getElementById("loading");
 const emptyState = document.getElementById("empty-state");
 const tableHeadRow = document.getElementById("table-head-row");
 const tableFilterRow = document.getElementById("table-filter-row");
 const tableBody = document.getElementById("table-body");
-const playerTable = document.getElementById("player-table");
-
-
+const teamTable = document.getElementById("team-table");
 
 
 async function init() {
@@ -53,11 +47,17 @@ async function init() {
         minMinutesVal.textContent = e.target.value;
     });
 
+    extraInfoToggle.addEventListener("change", () => {
+        extraInfoLabel.textContent =
+            extraInfoToggle.checked ? "On" : "Off";
+    });
+
     updateBtn.addEventListener("click", fetchAndRender);
 
-    // Initial Setup
+    // Initial setup
     await loadMetadata();
     await updateInfo();
+    seasonOptions({seasonSelect});
     updateDropdownVisibilities({
         tableTypeSelect,
         skillGroup,
@@ -72,45 +72,31 @@ async function init() {
 
 
 async function updateInfo() {
-    try {
-        const data = await fetchPlayerInfo(playerId);
-
-        playerName.textContent = `${data["FIRST_NAME"]} ${data["LAST_NAME"]}`;
-        playerHeight.textContent = data["HEIGHT"];
-        playerWeight.textContent = `${data["WEIGHT"]} lbs`;
-        playerExp.textContent = `${data["TO_YEAR"] - data["FROM_YEAR"]} seasons`;
-        playerTeam.textContent = data["TEAM_ABBREVIATION"];
-
-    } catch (err) {
-        console.error(err);
-
-        playerName.textContent = "ERROR";
-        playerHeight.textContent = "ERROR";
-        playerWeight.textContent = "ERROR";
-        playerExp.textContent = "ERROR";
-        playerTeam.textContent = "ERROR";
-    }
+    // find way to map team ID to team name (maybe have team info table)
+    teamName.textContent = `${teamId}`;
 }
 
 
 async function fetchAndRender() {
     loadingOverlay.style.display = "flex";
     emptyState.style.display = "none";
-    playerTable.style.display = "table";
+    teamTable.style.display = "table";
 
     try {
-        const data = await fetchPlayerStats({
-            playerId: playerId,
+        const data = await fetchTeamStats({
+            teamId: teamId,
             type: tableTypeSelect.value,
+            season: seasonSelect.value,
             min: minMinutesSlider.value,
             skill: skillSelect.value,
-            pillar: pillarSelect.value
+            pillar: pillarSelect.value,
+            detailed: extraInfoToggle.checked
         });
 
         currentData = data;
 
         if (currentData.length === 0) {
-            playerTable.style.display = "none";
+            teamTable.style.display = "none";
             emptyState.style.display = "block";
             return;
         }
@@ -120,10 +106,10 @@ async function fetchAndRender() {
     } catch (err) {
         console.error(err);
 
-        playerTable.style.display = "none";
+        teamTable.style.display = "none";
         emptyState.style.display = "block";
         emptyState.innerHTML =
-            "<p>No data. Try reducing minimum minutes.</p>";
+            "<p>Error loading data. Make sure the backend is running.</p>";
     } finally {
         loadingOverlay.style.display = "none";
     }
@@ -131,3 +117,4 @@ async function fetchAndRender() {
 
 
 document.addEventListener("DOMContentLoaded", init);
+
