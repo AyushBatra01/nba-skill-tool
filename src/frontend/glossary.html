@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glossary | NBA Skills</title>
+    <meta name="description" content="Definitions, formulas, and scoring methodology for NBA Skills.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="glossary">
+    <div id="site-header"></div>
+    <header class="page-hero directory-hero">
+        <div class="header-content">
+            <p class="eyebrow">Reference</p>
+            <h1>Glossary & methodology</h1>
+            <p>How the NBA Skills ratings are calculated, from raw data through the final composite score.</p>
+        </div>
+    </header>
+    <main class="glossary-main">
+        <section class="glossary-section glass-panel">
+            <p class="eyebrow">The scoring process</p>
+            <div id="methodology-steps" class="methodology-steps"></div>
+        </section>
+        <section class="glossary-section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Final scores</p>
+                    <h2>Overall & role</h2>
+                </div>
+            </div>
+            <div id="overall-list" class="glossary-grid"></div>
+        </section>
+        <section class="glossary-section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Skills and pillars</p>
+                    <h2>Rating structure</h2>
+                </div>
+            </div>
+            <div id="skill-list" class="skill-glossary-list"></div>
+        </section>
+        <section class="glossary-section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Components</p>
+                    <h2>Raw statistics</h2>
+                </div>
+                <label class="glossary-search" for="glossary-search">
+                    <span aria-hidden="true">⌕</span>
+                    <input id="glossary-search" type="search" placeholder="Search a stat" autocomplete="off">
+                </label>
+            </div>
+            <div id="raw-stat-list" class="glossary-grid"></div>
+            <p id="glossary-empty" class="directory-empty" hidden>No matching statistics found.</p>
+        </section>
+    </main>
+    <script src="js/common.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/glossary.js"></script>
+</body>
+</html>

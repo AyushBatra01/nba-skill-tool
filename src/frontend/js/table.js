@@ -134,21 +134,35 @@ function renderBody({ tableBody }) {
             const td = document.createElement("td");
 
             if (col === "PLAYER_NAME") {
-                td.innerHTML = `
-                    <a class="player-link" href="player.html?player_id=${row.PLAYER_ID}">
-                        ${row.PLAYER_NAME}
-                    </a>
-                `;
+                const link = document.createElement("a");
+                link.className = "player-link identity-link";
+                link.href = `player.html?player_id=${row.PLAYER_ID}`;
+                const image = document.createElement("img");
+                image.className = "table-headshot";
+                image.src = playerHeadshotUrl(row.PLAYER_ID);
+                image.alt = "";
+                image.addEventListener("error", () => hideMissingImage(image), { once: true });
+                const name = document.createElement("span");
+                name.textContent = row.PLAYER_NAME;
+                link.append(image, name);
+                td.appendChild(link);
                 tr.appendChild(td);
                 return;
             }
 
             if (col == "TEAM") {
-                td.innerHTML = `
-                    <a class="player-link" href="team.html?team_id=${row.TEAM_ID}">
-                        ${row.TEAM}
-                    </a>
-                `;
+                const link = document.createElement("a");
+                link.className = "player-link identity-link team-link";
+                link.href = `team.html?team_id=${row.TEAM_ID}`;
+                const image = document.createElement("img");
+                image.className = "table-team-logo";
+                image.src = teamLogoUrl(row.TEAM_ID);
+                image.alt = "";
+                image.addEventListener("error", () => hideMissingImage(image), { once: true });
+                const abbreviation = document.createElement("span");
+                abbreviation.textContent = row.TEAM;
+                link.append(image, abbreviation);
+                td.appendChild(link);
                 tr.appendChild(td);
                 return;
             }

@@ -3,56 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--
-    <title>NBA Skills Leaderboard</title>
-    <meta name="description" content="An interactive leaderboard displaying NBA player skills and performance percentiles.">
-    -->
+    <title>Player | NBA Skills</title>
+    <meta name="description" content="NBA player skill profile and historical performance.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <header class="app-header">
+<body data-page="players">
+    <div id="site-header"></div>
+    <header class="page-hero profile-hero">
         <div class="header-content">
-            <a href="index.html" class="back-link">← Leaderboard</a>
-            <h1 id="player-name">Loading...</h1>
-<!--            <p id="player-subtitle">-->
-<!--                Loading player information...-->
-<!--            </p>-->
+            <a href="players.html" class="back-link">← All players</a>
+            <div class="profile-title-row">
+                <img id="player-headshot" class="profile-headshot" alt="" hidden>
+                <div>
+                    <p class="eyebrow">Player profile</p>
+                    <h1 id="player-name">Loading...</h1>
+                </div>
+            </div>
         </div>
     </header>
 
-    <section class="player-card glass-panel">
-        <!--
-        <div class="player-photo">
-            <img id="player-headshot"
-                 src="assets/default-player.png"
-                 alt="Player Headshot">
-        </div>
-        -->
+    <section class="player-card glass-panel profile-card">
         <div class="player-info-grid">
             <div class="info-item">
-                <span class="info-label">Height</span>
-                <span id="player-height">6'8"</span>
+                <span class="info-label">Measurements</span>
+                <span class="profile-detail"><span id="player-height">6'8"</span> <span class="detail-separator">·</span> <span id="player-weight">250 lb</span></span>
             </div>
-            <div class="info-item">
-                <span class="info-label">Weight</span>
-                <span id="player-weight">250 lb</span>
-            </div>
-<!--            <div class="info-item">-->
-<!--                <span class="info-label">Age</span>-->
-<!--                <span id="player-age">40</span>-->
-<!--            </div>-->
             <div class="info-item">
                 <span class="info-label">Experience</span>
                 <span id="player-exp">22 Seasons</span>
             </div>
-<!--            <div class="info-item">-->
-<!--                <span class="info-label">Draft</span>-->
-<!--                <span id="player-draft">2003 • #1 Overall</span>-->
-<!--            </div>-->
+            <div class="info-item">
+                <span class="info-label">College & Draft</span>
+                <span class="profile-detail"><span id="player-college">—</span> <span class="detail-separator">·</span> <span id="player-draft">—</span></span>
+            </div>
             <div class="info-item">
                 <span class="info-label">Current Team</span>
                 <span id="player-team">Lakers</span>

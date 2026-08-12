@@ -7,6 +7,11 @@ const teamId = Number(params.get("team_id"));
 
 // DOM Elements
 const teamName = document.getElementById("team-name");
+const teamLogo = document.getElementById("team-logo");
+const teamCity = document.getElementById("team-city");
+const teamFounded = document.getElementById("team-founded");
+const teamAge = document.getElementById("team-age");
+const teamAbbreviation = document.getElementById("team-abbreviation");
 const tableTypeSelect = document.getElementById("table-type");
 const skillGroup = document.getElementById("skill-group");
 const skillSelect = document.getElementById("skill-select");
@@ -27,6 +32,10 @@ const teamTable = document.getElementById("team-table");
 
 
 async function init() {
+    if (!Number.isInteger(teamId) || teamId <= 0) {
+        teamName.textContent = "Team not found";
+        return;
+    }
     // Event Listeners
     tableTypeSelect.addEventListener("change", () =>
         updateDropdownVisibilities({
@@ -72,8 +81,23 @@ async function init() {
 
 
 async function updateInfo() {
-    // find way to map team ID to team name (maybe have team info table)
-    teamName.textContent = `${teamId}`;
+    try {
+        const data = await fetchTeamInfo(teamId);
+        teamName.textContent = data.FULL_NAME;
+        teamCity.textContent = data.CITY || "—";
+        teamFounded.textContent = data.YEAR_FOUNDED || "—";
+        teamAge.textContent = data.YEAR_FOUNDED
+            ? `${new Date().getFullYear() - data.YEAR_FOUNDED} years`
+            : "—";
+        teamAbbreviation.textContent = data.ABBREVIATION || "—";
+        teamLogo.src = teamLogoUrl(teamId);
+        teamLogo.alt = `${data.FULL_NAME} logo`;
+        teamLogo.hidden = false;
+        teamLogo.addEventListener("error", () => hideMissingImage(teamLogo), { once: true });
+    } catch (err) {
+        console.error(err);
+        teamName.textContent = "Team not found";
+    }
 }
 
 
@@ -117,4 +141,3 @@ async function fetchAndRender() {
 
 
 document.addEventListener("DOMContentLoaded", init);
-

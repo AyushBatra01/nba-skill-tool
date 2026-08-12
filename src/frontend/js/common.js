@@ -11,6 +11,49 @@ const ignoredColumns = ["PLAYER_ID", "TEAM_ID"];
 const nonPctColumns = ["PLAYER_NAME", "TEAM", "SEASON", "AGE", "MIN", "HEIGHT", "WEIGHT", "COLLEGE", "COUNTRY", "DRAFT_YEAR", "DRAFT_NUMBER"];
 const filterableColumns = ["PLAYER_NAME", "TEAM", "SEASON"];
 
+function renderSiteHeader() {
+    const mount = document.getElementById("site-header");
+    if (!mount) return;
+
+    const page = document.body.dataset.page || "leaderboard";
+    const links = [
+        ["leaderboard", "index.html", "Leaderboard"],
+        ["players", "players.html", "Players"],
+        ["teams", "teams.html", "Teams"],
+        ["glossary", "glossary.html", "Glossary"],
+    ];
+
+    mount.innerHTML = `
+        <nav class="site-nav" aria-label="Primary navigation">
+            <a class="brand" href="index.html" aria-label="NBA Skills home">
+                <span>NBA Skills</span>
+            </a>
+            <div class="nav-links">
+                ${links.map(([key, href, label]) => `
+                    <a href="${href}" class="nav-link ${page === key ? "is-active" : ""}">
+                        ${label}
+                    </a>
+                `).join("")}
+            </div>
+        </nav>
+    `;
+}
+
+function playerHeadshotUrl(playerId) {
+    return `https://cdn.nba.com/headshots/nba/latest/1040x760/${playerId}.png`;
+}
+
+function teamLogoUrl(teamId) {
+    return `https://cdn.nba.com/logos/nba/${teamId}/primary/L/logo.svg`;
+}
+
+function hideMissingImage(image) {
+    image.classList.add("is-missing");
+    image.remove();
+}
+
+renderSiteHeader();
+
 async function loadMetadata() {
     const res = await fetch("./assets/column_metadata.json");
     if (!res.ok) {

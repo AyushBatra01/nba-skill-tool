@@ -7,10 +7,11 @@ const playerId = Number(params.get("player_id"));
 
 // DOM Elements
 const playerName = document.getElementById("player-name");
+const playerHeadshot = document.getElementById("player-headshot");
 const playerHeight = document.getElementById("player-height");
 const playerWeight = document.getElementById("player-weight");
-const playerAge = document.getElementById("player-age");
 const playerExp = document.getElementById("player-exp");
+const playerCollege = document.getElementById("player-college");
 const playerDraft = document.getElementById("player-draft");
 const playerTeam = document.getElementById("player-team");
 
@@ -33,6 +34,10 @@ const playerTable = document.getElementById("player-table");
 
 
 async function init() {
+    if (!Number.isInteger(playerId) || playerId <= 0) {
+        playerName.textContent = "Player not found";
+        return;
+    }
     // Event Listeners
     tableTypeSelect.addEventListener("change", () =>
         updateDropdownVisibilities({
@@ -76,10 +81,16 @@ async function updateInfo() {
         const data = await fetchPlayerInfo(playerId);
 
         playerName.textContent = `${data["FIRST_NAME"]} ${data["LAST_NAME"]}`;
+        playerHeadshot.src = playerHeadshotUrl(playerId);
+        playerHeadshot.alt = `${playerName.textContent} headshot`;
+        playerHeadshot.hidden = false;
+        playerHeadshot.addEventListener("error", () => hideMissingImage(playerHeadshot), { once: true });
         playerHeight.textContent = data["HEIGHT"];
         playerWeight.textContent = `${data["WEIGHT"]} lbs`;
         playerExp.textContent = `${data["TO_YEAR"] - data["FROM_YEAR"]} seasons`;
-        playerTeam.textContent = data["TEAM_ABBREVIATION"];
+        playerCollege.textContent = data["COLLEGE"] || "—";
+        playerDraft.textContent = formatDraft(data["DRAFT_YEAR"], data["DRAFT_NUMBER"]);
+        playerTeam.textContent = data["TEAM_NAME"] || data["TEAM_ABBREVIATION"] || "—";
 
     } catch (err) {
         console.error(err);
@@ -90,6 +101,12 @@ async function updateInfo() {
         playerExp.textContent = "ERROR";
         playerTeam.textContent = "ERROR";
     }
+}
+
+function formatDraft(year, pick) {
+    if (!year || String(year).toLowerCase() === "undrafted") return "Undrafted";
+    if (!pick || String(pick).toLowerCase() === "undrafted") return String(year);
+    return `${year} · Pick #${pick}`;
 }
 
 

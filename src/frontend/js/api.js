@@ -29,6 +29,12 @@ async function fetchPlayerInfo(playerId) {
     return await res.json();
 }
 
+async function fetchPlayerDirectory(season) {
+    const res = await fetch(`${API_BASE}/player/directory?season=${season}`);
+    if (!res.ok) throw new Error("API error");
+    return await res.json();
+}
+
 
 async function fetchPlayerStats(params) {
     const { playerId, type, min, skill, pillar } = params;
@@ -66,5 +72,23 @@ async function fetchTeamStats(params) {
     const res = await fetch(url);
     if (!res.ok) throw new Error("API error");
 
+    return await res.json();
+}
+
+async function fetchTeamInfo(teamId) {
+    const res = await fetch(`${API_BASE}/team/${teamId}/info`);
+    if (!res.ok) throw new Error("API error");
+    return await res.json();
+}
+
+async function fetchTeamDirectory() {
+    const res = await fetch(`${API_BASE}/team/directory`);
+    if (!res.ok) throw new Error("API error");
+    return await res.json();
+}
+
+async function fetchGlossary() {
+    const res = await fetch(`${API_BASE}/glossary`);
+    if (!res.ok) throw new Error("API error");
     return await res.json();
 }

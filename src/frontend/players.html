@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Players | NBA Skills</title>
+    <meta name="description" content="Browse NBA players with locally stored NBA Skills data.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="players">
+    <div id="site-header"></div>
+    <header class="page-hero directory-hero">
+        <div class="header-content">
+            <p class="eyebrow">Directory</p>
+            <h1>Explore players</h1>
+            <p>Browse players who meet the dataset's 100-minute qualification threshold for a selected season.</p>
+        </div>
+    </header>
+    <main class="directory-main">
+        <div class="directory-toolbar">
+            <div class="control-group directory-season">
+                <label for="directory-season">Season</label>
+                <select id="directory-season" aria-label="Player directory season"></select>
+            </div>
+        </div>
+        <label class="directory-search glass-panel" for="directory-search">
+            <span aria-hidden="true">⌕</span>
+            <input id="directory-search" type="search" placeholder="Search by player or team" autocomplete="off">
+        </label>
+        <p id="directory-count" class="directory-count" aria-live="polite"></p>
+        <section id="directory-grid" class="directory-grid" aria-live="polite"></section>
+        <p id="directory-empty" class="directory-empty" hidden>No matching players found.</p>
+    </main>
+    <script src="js/common.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/directory.js"></script>
+</body>
+</html>

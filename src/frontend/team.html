@@ -3,23 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--
-    <title>NBA Skills Leaderboard</title>
-    <meta name="description" content="An interactive leaderboard displaying NBA player skills and performance percentiles.">
-    -->
+    <title>Team | NBA Skills</title>
+    <meta name="description" content="NBA team player skill leaderboard.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <header class="app-header">
+<body data-page="teams">
+    <div id="site-header"></div>
+    <header class="page-hero profile-hero">
         <div class="header-content">
-            <a href="index.html" class="back-link">← Leaderboard</a>
-            <h1 id="team-name">Team Name</h1>
+            <a href="teams.html" class="back-link">← All teams</a>
+            <div class="profile-title-row">
+                <img id="team-logo" class="profile-logo" alt="" hidden>
+                <div>
+                    <p class="eyebrow">Team profile</p>
+                    <h1 id="team-name">Loading...</h1>
+                </div>
+            </div>
         </div>
     </header>
+
+    <section class="player-card glass-panel profile-card">
+        <div class="player-info-grid team-info-grid">
+            <div class="info-item">
+                <span class="info-label">City</span>
+                <span id="team-city">—</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Founded</span>
+                <span id="team-founded">—</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Franchise age</span>
+                <span id="team-age">—</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Abbreviation</span>
+                <span id="team-abbreviation">—</span>
+            </div>
+        </div>
+    </section>
 
     <main class="app-main">
         <section class="controls glass-panel">
