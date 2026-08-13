@@ -1,4 +1,6 @@
-const API_BASE = "http://127.0.0.1:8000";
+// A local static-server workflow still uses the development API, while a
+// deployed app is served by FastAPI and uses its own origin.
+const API_BASE = window.location.port === "3000" ? "http://127.0.0.1:8000" : "";
 
 async function fetchLeaderboard(params) {
     const { type, season, min, skill, pillar, detailed } = params;

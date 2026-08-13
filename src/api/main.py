@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 
 from src.api.routes.leaderboard import router as leaderboard_router
 from src.api.routes.player import router as player_router
@@ -21,11 +23,7 @@ app.include_router(player_router)
 app.include_router(team_router)
 app.include_router(glossary_router)
 
-# run from project root:
-# uvicorn src.api.main:app --port 8000 --reload
-
-# run in separate terminal (from frontend directory):
-# python -m http.server 3000
-
-# Open in browser:
-# http://localhost:3000
+# Serve the dashboard and API from one origin in production. This keeps the
+# shipped site free of environment-specific API URLs.
+FRONTEND_DIR = Path(__file__).resolve().parents[1] / "frontend"
+app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
