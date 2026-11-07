@@ -66,7 +66,15 @@ async function init() {
     // Initial setup
     await loadMetadata();
     await updateInfo();
-    seasonOptions({seasonSelect});
+    const seasons = await seasonOptions({seasonSelect});
+    const updateSuggestedMinimum = () => applySeasonMinimum({
+        seasonSelect,
+        minMinutesSlider,
+        minMinutesVal,
+        latestSeason: seasons[0]
+    });
+    updateSuggestedMinimum();
+    seasonSelect.addEventListener("change", updateSuggestedMinimum);
     updateDropdownVisibilities({
         tableTypeSelect,
         skillGroup,

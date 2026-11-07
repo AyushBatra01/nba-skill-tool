@@ -58,7 +58,7 @@ async function initDirectory() {
             return;
         }
 
-        seasonOptions({ seasonSelect });
+        await seasonOptions({ seasonSelect });
         seasonSelect.addEventListener("change", loadPlayersForSeason);
         await loadPlayersForSeason();
     } catch (error) {

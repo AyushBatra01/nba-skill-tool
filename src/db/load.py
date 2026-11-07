@@ -10,6 +10,20 @@ def load_table(table_name: str):
     query = f"SELECT * FROM {table_name}"
     return pd.read_sql(query, engine)
 
+
+def get_available_seasons():
+    """Return seasons that are complete across every dashboard data table."""
+    season_tables = ("basic_info", "creation", "offball", "defense", "physicality")
+    seasons = None
+    for table_name in season_tables:
+        table_seasons = set(
+            pd.read_sql(f"SELECT DISTINCT SEASON FROM {table_name}", engine)["SEASON"]
+            .astype(int)
+            .tolist()
+        )
+        seasons = table_seasons if seasons is None else seasons & table_seasons
+    return sorted(seasons or (), reverse=True)
+
 def get_player(player_id: int):
     query = """
         SELECT p.*, t.FULL_NAME AS TEAM_NAME,
@@ -56,6 +70,17 @@ def get_player_directory(season: int):
     """
     df = pd.read_sql(query, engine, params={"season": season})
     return _clean_dataframe(df).to_dict(orient="records")
+
+
+def get_player_seasons(player_id: int):
+    query = """
+        SELECT DISTINCT SEASON
+        FROM basic_info
+        WHERE PLAYER_ID = :player_id
+        ORDER BY SEASON
+    """
+    df = pd.read_sql(query, engine, params={"player_id": player_id})
+    return df["SEASON"].astype(int).tolist()
 
 
 def get_team_directory():

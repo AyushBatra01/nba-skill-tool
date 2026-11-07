@@ -2,6 +2,12 @@
 // deployed app is served by FastAPI and uses its own origin.
 const API_BASE = window.location.port === "3000" ? "http://127.0.0.1:8000" : "";
 
+async function fetchAvailableSeasons() {
+    const res = await fetch(`${API_BASE}/seasons`);
+    if (!res.ok) throw new Error("API error");
+    return await res.json();
+}
+
 async function fetchLeaderboard(params) {
     const { type, season, min, skill, pillar, detailed } = params;
 

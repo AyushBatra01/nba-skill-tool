@@ -30,6 +30,8 @@ def get_matchups(season):
         per_mode_simple="Totals",
         league_id='00',
         season_type_playoffs='Regular Season',
+        def_team_id_nullable="",
+        off_team_id_nullable="",
         timeout=60,
         headers=headers
     )

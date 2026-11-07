@@ -2,16 +2,16 @@ import pandas as pd
 from sqlalchemy import inspect
 from src.db.database import engine
 
-def save_table(df: pd.DataFrame, table_name: str):
+def save_table(df: pd.DataFrame, table_name: str, db_engine=engine):
     df.to_sql(
         table_name,
-        engine,
+        db_engine,
         if_exists='replace',
         index=False
     )
 
 
-def replace_season_rows(df: pd.DataFrame, table_name: str, season: int):
+def replace_season_rows(df: pd.DataFrame, table_name: str, season: int, db_engine=engine):
     """Replace one season while preserving all previously stored seasons.
 
     This is used by the latest-season refresh: all API work completes before
@@ -21,9 +21,9 @@ def replace_season_rows(df: pd.DataFrame, table_name: str, season: int):
     if "SEASON" not in df.columns:
         raise ValueError(f"{table_name} must include a SEASON column")
 
-    if inspect(engine).has_table(table_name):
-        existing = pd.read_sql(f"SELECT * FROM {table_name}", engine)
+    if inspect(db_engine).has_table(table_name):
+        existing = pd.read_sql(f"SELECT * FROM {table_name}", db_engine)
         existing = existing[existing["SEASON"] != season]
         df = pd.concat([existing, df], ignore_index=True)
 
-    save_table(df, table_name)
+    save_table(df, table_name, db_engine)

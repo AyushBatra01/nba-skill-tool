@@ -86,23 +86,31 @@ function formatValue(col, val) {
 }
 
 
-function seasonOptions({
-    seasonSelect,
-    startYear = 2018,
-    endYear = 2026
-}) {
-    for (let year = endYear; year >= startYear; year--) {
+async function seasonOptions({ seasonSelect }) {
+    const seasons = await fetchAvailableSeasons();
+    seasonSelect.innerHTML = "";
+
+    for (const year of seasons) {
         const option = document.createElement("option");
 
         option.value = year;
         option.textContent = `${year-1}-${String(year).slice(-2)}`;
 
-        if (year === endYear) {
+        if (year === seasons[0]) {
             option.selected = true;
         }
 
         seasonSelect.appendChild(option);
     }
+
+    return seasons;
+}
+
+
+function applySeasonMinimum({ seasonSelect, minMinutesSlider, minMinutesVal, latestSeason }) {
+    const minimum = Number(seasonSelect.value) === latestSeason ? 100 : 500;
+    minMinutesSlider.value = minimum;
+    minMinutesVal.textContent = minimum;
 }
 
 

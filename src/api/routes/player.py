@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 
 from src.services.players import get_player_overall, get_player_skill, get_player_pillar
-from src.db.load import get_player, get_player_directory
+from src.db.load import get_available_seasons, get_player, get_player_directory
 
 router = APIRouter(
     prefix="/player",
@@ -10,7 +10,12 @@ router = APIRouter(
 
 
 @router.get("/directory")
-def player_directory(season: int = 2026):
+def player_directory(season: int | None = None):
+    if season is None:
+        seasons = get_available_seasons()
+        if not seasons:
+            return []
+        season = seasons[0]
     return get_player_directory(season)
 
 @router.get("/{player_id}/overall")

@@ -18,23 +18,29 @@ the project calls `nba_api`; dashboard visitors only read the stored SQLite
 database.
 
 ```bash
-# Rebuild every data table for the configured 2018–2026 range and refresh teams.
+# Rebuild every data table for the configured 2018–2027 range and refresh teams.
 make update-full
 
-# Replace only the 2025–26 rows; team metadata is intentionally left unchanged.
+# Replace only the 2026–27 rows; team metadata is intentionally left unchanged.
 make update-latest
 ```
 
 The equivalent commands with custom seasons are:
 
 ```bash
-python -m scripts.update.update_database full --start-year 2019 --end-year 2026
-python -m scripts.update.update_database latest --end-year 2026
+python -m scripts.update.update_database full --start-year 2019 --end-year 2027
+python -m scripts.update.update_database latest --end-year 2027
 ```
 
 Both modes retain only players with at least 100 minutes in each stored season.
+They download and validate every table in a temporary database before replacing
+`data/nba.db`. The previously published database is kept at `data/nba.db.bak`.
+The updater first opens NBA.com with a Chrome-compatible transport so the stats
+requests carry the browser fingerprint and cookies expected by `stats.nba.com`.
 The player-profile step makes one NBA API request per player and waits three
 seconds between requests by default, so a full refresh can take about an hour.
+Latest-season refreshes reuse existing profiles and only request players that
+have not appeared in the database before.
 Use `--player-sleep SECONDS` only if you need to adjust that rate limit.
 
 ## Team metadata

@@ -1,18 +1,12 @@
 import numpy as np
 
 SEASON_START = 2018
-SEASON_END = 2026
+SEASON_END = 2027
 
 headers = {
-    "Host": "stats.nba.com",
-    "Connection": "keep-alive",
-    "Accept": "application/json, text/plain, /",
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
-    "Referer": "https://www.nba.com/",
+    "Accept": "application/json, text/plain, */*",
     "Origin": "https://www.nba.com",
-    "x-nba-stats-origin": "stats",
-    "x-nba-stats-token": "true",
-    "Accept-Language": "en-US,en;q=0.9"
+    "Referer": "https://www.nba.com/",
 }
 
 def resp_to_df(resp):

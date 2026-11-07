@@ -220,3 +220,6 @@ __marimo__/
 # DS Store
 *.DS_Store
 .idea
+
+# Local safety copy created before a database refresh is published
+data/nba.db.bak

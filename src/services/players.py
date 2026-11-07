@@ -2,23 +2,17 @@ import pandas as pd
 
 from src.scoring.pipeline import build_skill_table, build_full_table, add_percentiles
 from src.config.load_config import configs, pillar_views
-from src.db.load import get_player
+from src.db.load import get_player_seasons
 
 bio_info = ["SEASON", "TEAM", "TEAM_ID", "AGE", "MIN"]
 
-def player_init(player_id):
-    player_info = get_player(player_id)
-    start = player_info['FROM_YEAR'] + 1
-    end = player_info['TO_YEAR']
-    return player_info, start, end
-
 def get_player_overall(player_id, minimum=500):
     rows = []
-    player_info, start, end = player_init(player_id)
+    seasons = get_player_seasons(player_id)
     data_cols = ["Creation", "OffBall", "Defense", "Physicality", "Role", "Rating"]
     pct_cols = [f"{d}_pct" for d in data_cols]
     cols = bio_info + data_cols + pct_cols
-    for season in range(start, end+1):
+    for season in seasons:
         # get full table
         full_df = build_full_table(season, configs, minimum)
         if player_id not in full_df['PLAYER_ID'].values:
@@ -36,14 +30,14 @@ def get_player_overall(player_id, minimum=500):
 
 def get_player_skill(player_id, skill, minimum=500):
     rows = []
-    player_info, start, end = player_init(player_id)
+    seasons = get_player_seasons(player_id)
     config = configs[skill.lower()]
     pillars = config['pillars']
     data_cols = [pillar_name for pillar_name in pillars.keys()]
     data_cols.append(skill)
     pct_cols = [f"{d}_pct" for d in data_cols]
     cols = bio_info + data_cols + pct_cols
-    for season in range(start, end+1):
+    for season in seasons:
         # get full table
         full_df = build_skill_table(season, config, skill, minimum)
         if player_id not in full_df['PLAYER_ID'].values:
@@ -61,12 +55,12 @@ def get_player_skill(player_id, skill, minimum=500):
 
 def get_player_pillar(player_id, skill, pillar, minimum=500):
     rows = []
-    player_info, start, end = player_init(player_id)
+    seasons = get_player_seasons(player_id)
     config = configs[skill.lower()]
     data_cols = pillar_views[skill][pillar]
     pct_cols = [f"{d}_pct" for d in data_cols]
     cols = bio_info + data_cols + pct_cols
-    for season in range(start, end + 1):
+    for season in seasons:
         # get full table
         full_df = build_skill_table(season, config, skill, minimum)
         if player_id not in full_df['PLAYER_ID'].values:
